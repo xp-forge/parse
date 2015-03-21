@@ -3,11 +3,15 @@
 use text\parse\Values;
 
 class Apply extends \text\parse\Rule {
-  private $name, $func;
+  private $name;
 
-  public function __construct($name, $func= null) {
+  /**
+   * Creates a new rule applying a rule by the specified name
+   *
+   * @param  string $name
+   */
+  public function __construct($name) {
     $this->name= $name;
-    $this->func= $func;
   }
 
   /**
@@ -19,13 +23,7 @@ class Apply extends \text\parse\Rule {
    * @return text.parse.Consumed
    */
   public function consume($rules, $tokens, $values) {
-    $result= $rules->named($this->name)->consume($rules, $tokens, []);
-    if ($f= $this->func && $result->matched()) {
-      $values[]= $result->backing();
-      return new Values($f($values, $tokens));
-    } else {
-      return $result;
-    }
+    return $rules->named($this->name)->consume($rules, $tokens, []);
   }
 
   /**
