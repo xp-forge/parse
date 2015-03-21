@@ -4,6 +4,7 @@ use text\parse\rules\Repeated;
 use text\parse\rules\Token;
 use text\parse\rules\Sequence;
 use text\parse\rules\Optional;
+use text\parse\rules\Collect;
 
 class RepeatedMapTest extends \unittest\TestCase {
   private $fixture;
@@ -20,7 +21,7 @@ class RepeatedMapTest extends \unittest\TestCase {
         function($values) { return [$values[0] => $values[2]]; }
       ),
       new Token(','),
-      Repeated::$MAP
+      Collect::$IN_MAP
     );
   }
 

@@ -8,6 +8,7 @@ use text\parse\rules\ListOf;
 use text\parse\rules\Repeated;
 use text\parse\rules\AnyOf;
 use text\parse\rules\Optional;
+use text\parse\rules\Collect;
 
 class AnnotationTest extends \unittest\TestCase {
   private $syntax;
@@ -22,7 +23,7 @@ class AnnotationTest extends \unittest\TestCase {
           [new Token('['), new Apply('annotations'), new Token(']')],
           function($values) { return $values[1]; }
         ),
-        'annotations' => new Repeated(new Apply('annotation'), new Token(','), Repeated::$MAP),
+        'annotations' => new Repeated(new Apply('annotation'), new Token(','), Collect::$IN_MAP),
         'annotation'  => new Sequence(
           [new Token('@'), new Token(T_STRING), new Optional(new Apply('value'))],
           function($values) { return [$values[1] => $values[2]]; }

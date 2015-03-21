@@ -29,7 +29,7 @@ $syntax= newinstance('text.parse.Syntax', [], [
         return [$values[0] => $values[2]];
       }),
       new Token(','),
-      Repeated::$MAP
+      Collect::$IN_MAP
     ),
     'val' => new AnyOf([
       T_CONSTANT_ENCAPSED_STRING => function($values) { return substr($values[0], 1, -1); },

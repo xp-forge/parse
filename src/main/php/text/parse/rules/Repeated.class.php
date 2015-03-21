@@ -11,24 +11,19 @@ use text\parse\Values;
  * @test  xp://text.parse.unittest.RepeatedMapTest
  */
 class Repeated extends Rule {
-  public static $MAP, $ADD;
-
-  static function __static() {
-    self::$MAP= function(&$values, $value) { $values[key($value)]= current($value); };
-    self::$ADD= function(&$values, $value) { $values[]= $value; };
-  }
+  private $rule, $delimiter, $collection;
 
   /**
    * Creates a new repeated rule
    *
    * @param  text.parse.Rule $rule
    * @param  text.parse.Rule $delimiter
-   * @param  php.Closure $combine
+   * @param  text.parse.rules.Collect $collect
    */
-  public function __construct(Rule $rule, Rule $delimiter= null, $combine= null) {
+  public function __construct(Rule $rule, Rule $delimiter= null, Collect $collect= null) {
     $this->rule= $rule;
     $this->delimiter= $delimiter;
-    $this->combine= $combine ?: self::$ADD;
+    $this->collection= $collect ?: Collect::$IN_ARRAY;
   }
 
   /**
@@ -40,13 +35,12 @@ class Repeated extends Rule {
    * @return text.parse.Consumed
    */
   public function consume($rules, $tokens, $values) {
-    $f= $this->combine;
     $continue= true;
 
     do {
       $result= $this->rule->consume($rules, $tokens, []);
       if ($continue= $result->matched()) {
-        $f($values, $result->backing());
+        $this->collection->collect($values, $result->backing());
         if ($this->delimiter) {
           $continue= $this->delimiter->consume($rules, $tokens, [])->matched();
         }

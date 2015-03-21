@@ -4,6 +4,7 @@ use text\parse\rules\Repeated;
 use text\parse\rules\Token;
 use text\parse\rules\Sequence;
 use text\parse\rules\Optional;
+use text\parse\rules\Collect;
 
 class RepeatedAddTest extends \unittest\TestCase {
   private $fixture;
@@ -17,7 +18,7 @@ class RepeatedAddTest extends \unittest\TestCase {
     $this->fixture= new Repeated(
       new Sequence([new Token(T_LNUMBER)], function($values) { return $values[0]; }),
       new Token(','),
-      Repeated::$ADD
+      Collect::$IN_ARRAY
     );
   }
 
