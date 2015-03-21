@@ -19,7 +19,7 @@ class Tokens extends \text\parse\Rule {
    * @param  var... $tokens
    */
   public function __construct() {
-    $this->tokens= func_get_args();
+    $this->tokens= array_flip(func_get_args());
   }
 
   /**
@@ -31,7 +31,7 @@ class Tokens extends \text\parse\Rule {
    * @return text.parse.Consumed
    */
   public function consume($rules, $tokens, $values) {
-    while (in_array($tokens->token()[0], $this->tokens)) {
+    while (isset($this->tokens[$tokens->token()[0]])) {
       $token= $tokens->token();
       $values[]= is_array($token) ? $token[1] : $token;
       $tokens->forward();
