@@ -10,8 +10,8 @@ Parse
 
 Parses code based on rules.
 
-Examples
---------
+Example
+-------
 The following example parses key/value pairs using the tokenizer built on top of PHP's tokenizer extension.
 
 ```php
@@ -45,3 +45,33 @@ $syntax= newinstance('text.parse.Syntax', [], [
 $tokens= new Tokenized('a: 1, b: 2.0, c: true, d: "D"');
 $pairs= $syntax->parse($tokens);  // ["a" => 1, "b" => 2.0, "c" => true, "d" => "D"]
 ```
+
+Rules
+-----
+The following rules are available for matching:
+
+### Token
+The rule *Token(T)* matches a single token `T`.
+
+### Tokens
+The rule *Tokens(T1[, T2[, ...]])* matches any combination of the given tokens. For example, `new Tokens(T_STRING, '.')` can be used to match dotted type notation as used in XP's type names.
+
+Be aware of the fact that this will match three dots, or three strings, or a string and a dot; and therefore does not guarantee syntactical correctness. It is, however, a high-performance alternative to more complex rules.
+
+### Apply
+The rule *Apply(RuleName)* will defer handling to a given named rule passed to the `Rules` constructor.
+
+### Match
+The rule *Match([T1 => Rule1[, T2 => Rule2[, ...]]])* matches rules based on the initial tokens used in the lookup map.
+
+### Sequence
+The rule *Sequence([Rule1[, Rule2[, ...]]], function)* matches a sequence of rules in the order specified, and passed the matched values to the handler function.
+
+### Optional
+The rule *Optional(Rule, default= NULL)* matches the rule, and returns it value; or the default if not matched.
+
+### Repeated
+The rule *Repeated(Rule, Delim= NULL, collect= IN_ARRAY)* matches the rule (and optionally, a given delimiter rule) as many times as possible. It uses a collector function from the `text.parse.rules.Collect` enum to process the results.
+
+An example is processing argument lists, e.g. `new Repeated(new Apply('val'), new Token(','))` will parse arguments to a function. Dangling delimiters are allowed.
+
