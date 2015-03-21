@@ -12,9 +12,16 @@ Parses code based on rules.
 
 Examples
 --------
-The following example parses key/value pairs:
+The following example parses key/value pairs, built on PHP's tokenizer extension.
 
 ```php
+use text\parse\Rules;
+use text\parse\Repeated;
+use text\parse\Sequence;
+use text\parse\Token;
+use text\parse\Apply;
+use text\parse\AnyOf;
+
 $syntax= newinstance('text.parse.Syntax', [], [
   'rules' => function() { return new Rules([
     new Repeated(
