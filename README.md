@@ -12,7 +12,7 @@ Parses code based on rules.
 
 Examples
 --------
-The following example parses key/value pairs, built on PHP's tokenizer extension.
+The following example parses key/value pairs using the tokenizer built on top of PHP's tokenizer extension.
 
 ```php
 use text\parse\Rules;
