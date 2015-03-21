@@ -47,6 +47,9 @@ $tokens= newinstance('text.parse.Tokens', [], [
       $token= array_shift($this->input);
     } while ($token && T_WHITESPACE === $token[0]);
     return $token;
+  },
+  'name'  => function($token) {
+    return is_int($token) ? token_name($token) : '`'.$token.'`';
   }
 ]);
 

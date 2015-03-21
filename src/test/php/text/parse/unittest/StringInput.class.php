@@ -20,4 +20,14 @@ class StringInput extends \text\parse\Tokens {
 
     return $token;
   }
+
+  /**
+   * Returns the name of a given token
+   *
+   * @param  var $token Either an integer ID or a character
+   * @return string
+   */
+  protected function name($token) {
+    return is_int($token) ? token_name($token) : '`'.$token.'`';
+  }
 }

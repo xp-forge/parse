@@ -18,7 +18,8 @@ class SyntaxTest extends \unittest\TestCase {
       'rules' => function() { return new Rules([new Returns('Test')]); }
     ]);
     $tokens= newinstance('text.parse.Tokens', [], [
-      'next'  => function() { return null; },
+      'next' => function() { return null; },
+      'name' => function($token) { return 'undefined'; }
     ]);
     $this->assertEquals('Test', $syntax->parse($tokens));
   }
