@@ -14,10 +14,18 @@ class TokensTest extends \unittest\TestCase {
   }
 
   #[@test]
-  public function php_typename() {
+  public function php_absolute_typename() {
     $this->assertEquals(
       ['\\', 'unittest', '\\', 'TestCase'],
       (new Tokens(T_STRING, T_NS_SEPARATOR))->consume([], new Tokenized('\unittest\TestCase'), [])->backing()
+    );
+  }
+
+  #[@test]
+  public function php_relative_typename() {
+    $this->assertEquals(
+      ['unittest', '\\', 'TestCase'],
+      (new Tokens(T_STRING, T_NS_SEPARATOR))->consume([], new Tokenized('unittest\TestCase'), [])->backing()
     );
   }
 }
