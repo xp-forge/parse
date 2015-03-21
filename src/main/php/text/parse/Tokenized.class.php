@@ -1,6 +1,12 @@
-<?php namespace text\parse\unittest;
+<?php namespace text\parse;
 
-class StringInput extends \text\parse\Tokens {
+/**
+ * Tokens implementation based on PHP's built-in tokenizer.
+ *
+ * @see   php://token_get_all
+ * @test  xp://text.parse.unittest.TokensTest
+ */
+class Tokenized extends Tokens {
   private $input;
 
   /**
@@ -12,7 +18,11 @@ class StringInput extends \text\parse\Tokens {
     $this->input= array_slice(token_get_all('<?='.$string), 1);
   }
 
-  /** @return var */
+  /**
+   * Returns next token, or NULL
+   *
+   * @return var
+   */
   protected function next() {
     do {
       $token= array_shift($this->input);

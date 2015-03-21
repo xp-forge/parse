@@ -16,6 +16,7 @@ The following example parses key/value pairs, built on PHP's tokenizer extension
 
 ```php
 use text\parse\Rules;
+use text\parse\Tokenized;
 use text\parse\rules\Repeated;
 use text\parse\rules\Sequence;
 use text\parse\rules\Token;
@@ -41,18 +42,6 @@ $syntax= newinstance('text.parse.Syntax', [], [
   ]); }
 ]);
 
-$tokens= newinstance('text.parse.Tokens', [], [
-  'input' => array_slice(token_get_all('<?=a: 1, b: 2.0, c: true, d: "D"', 1)),
-  'next'  => function() {
-    do {
-      $token= array_shift($this->input);
-    } while ($token && T_WHITESPACE === $token[0]);
-    return $token;
-  },
-  'name'  => function($token) {
-    return is_int($token) ? token_name($token) : '`'.$token.'`';
-  }
-]);
-
+$tokens= new Tokenized('a: 1, b: 2.0, c: true, d: "D"');
 $pairs= $syntax->parse($tokens);  // ["a" => 1, "b" => 2.0, "c" => true, "d" => "D"]
 ```

@@ -1,5 +1,6 @@
 <?php namespace text\parse\unittest;
 
+use text\parse\Tokenized;
 use text\parse\rules\Repeated;
 use text\parse\rules\Token;
 use text\parse\rules\Sequence;
@@ -24,25 +25,25 @@ class RepeatedAddTest extends \unittest\TestCase {
 
   #[@test]
   public function number_by_itself() {
-    $tokens= new StringInput('1');
+    $tokens= new Tokenized('1');
     $this->assertEquals(['1'], $this->fixture->consume([], $tokens, [])->backing());
   }
 
   #[@test]
   public function two_numbers() {
-    $tokens= new StringInput('1, 2');
+    $tokens= new Tokenized('1, 2');
     $this->assertEquals(['1', '2'], $this->fixture->consume([], $tokens, [])->backing());
   }
 
   #[@test]
   public function two_numbers_and_dangling_comma_at_end() {
-    $tokens= new StringInput('1, 2, ');
+    $tokens= new Tokenized('1, 2, ');
     $this->assertEquals(['1', '2'], $this->fixture->consume([], $tokens, [])->backing());
   }
 
   #[@test]
   public function inside_another_rule() {
-    $tokens= new StringInput('f(1, 2);');
+    $tokens= new Tokenized('f(1, 2);');
     $rule= new Sequence(
       [new Token(T_STRING), new Token('('), $this->fixture, new Token(')'), new Token(';')],
       function($values) { return [$values[0] => $values[2]]; }

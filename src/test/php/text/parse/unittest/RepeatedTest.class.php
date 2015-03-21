@@ -1,5 +1,6 @@
 <?php namespace text\parse\unittest;
 
+use text\parse\Tokenized;
 use text\parse\rules\Repeated;
 use text\parse\rules\Token;
 use text\parse\rules\Sequence;
@@ -21,13 +22,13 @@ class RepeatedTest extends \unittest\TestCase {
 
   #[@test]
   public function one_use_statement() {
-    $tokens= new StringInput('use a;');
+    $tokens= new Tokenized('use a;');
     $this->assertEquals(['a'], $this->fixture->consume([], $tokens, [])->backing());
   }
 
   #[@test]
   public function two_use_statements() {
-    $tokens= new StringInput('use a; use b;');
+    $tokens= new Tokenized('use a; use b;');
     $this->assertEquals(['a', 'b'], $this->fixture->consume([], $tokens, [])->backing());
   }
 }

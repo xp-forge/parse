@@ -1,6 +1,7 @@
 <?php namespace text\parse\unittest;
 
 use text\parse\Rules;
+use text\parse\Tokenized;
 use text\parse\rules\Sequence;
 use text\parse\rules\Apply;
 use text\parse\rules\Token;
@@ -47,31 +48,31 @@ class AnnotationTest extends \unittest\TestCase {
 
   #[@test]
   public function test_annotation() {
-    $tokens= new StringInput('[@test]');
+    $tokens= new Tokenized('[@test]');
     $this->assertEquals(['test' => null], $this->syntax->parse($tokens));
   }
 
   #[@test]
   public function test_and_slow_annotations() {
-    $tokens= new StringInput('[@test, @slow]');
+    $tokens= new Tokenized('[@test, @slow]');
     $this->assertEquals(['test' => null, 'slow' => null], $this->syntax->parse($tokens));
   }
 
   #[@test]
   public function rule_annotation_with_string_value() {
-    $tokens= new StringInput('[@rule("admin")]');
+    $tokens= new Tokenized('[@rule("admin")]');
     $this->assertEquals(['rule' => 'admin'], $this->syntax->parse($tokens));
   }
 
   #[@test]
   public function access_annotation_with_constant_value() {
-    $tokens= new StringInput('[@access(MODIFIER_PUBLIC)]');
+    $tokens= new Tokenized('[@access(MODIFIER_PUBLIC)]');
     $this->assertEquals(['access' => MODIFIER_PUBLIC], $this->syntax->parse($tokens));
   }
 
   #[@test]
   public function limit_annotation_with_constant_value() {
-    $tokens= new StringInput('[@limit(1.4)]');
+    $tokens= new Tokenized('[@limit(1.4)]');
     $this->assertEquals(['limit' => 1.4], $this->syntax->parse($tokens));
   }
 }

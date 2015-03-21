@@ -1,5 +1,6 @@
 <?php namespace text\parse\unittest;
 
+use text\parse\Tokenized;
 use text\parse\rules\Optional;
 use text\parse\rules\Token;
 use text\parse\rules\Sequence;
@@ -21,13 +22,13 @@ class OptionalTest extends \unittest\TestCase {
 
   #[@test]
   public function statement() {
-    $tokens= new StringInput('a');
+    $tokens= new Tokenized('a');
     $this->assertEquals(['a' => null], $this->fixture->consume([], $tokens, [])->backing());
   }
 
   #[@test]
   public function statement_with_optional_semicolon() {
-    $tokens= new StringInput('a;');
+    $tokens= new Tokenized('a;');
     $this->assertEquals(['a' => ';'], $this->fixture->consume([], $tokens, [])->backing());
   }
 }

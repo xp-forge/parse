@@ -1,6 +1,7 @@
 <?php namespace text\parse\unittest;
 
 use text\parse\Rules;
+use text\parse\Tokenized;
 use text\parse\rules\Repeated;
 use text\parse\rules\Sequence;
 use text\parse\rules\Token;
@@ -43,7 +44,7 @@ class MapTest extends \unittest\TestCase {
   public function readme_example() {
     $this->assertEquals(
       ['a' => 1, 'b' => 2.0, 'c' => true, 'd' => 'D'],
-      $this->syntax->parse(new StringInput('a: 1, b: 2.0, c: true, d: "D"'))
+      $this->syntax->parse(new Tokenized('a: 1, b: 2.0, c: true, d: "D"'))
     );
   }
 }
