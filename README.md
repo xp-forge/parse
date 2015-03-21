@@ -24,13 +24,15 @@ $value= new AnyOf([
 
 $syntax= newinstance('text.parse.Syntax', [], [
   'rules' => function() {
-    return new Rules(new Repeated(
-      new Sequence([new Token(T_STRING), new Token(':'), $value], function($values) {
-        return [$values[0] => $values[2]];
-      }),
-      new Token(','),
-      Repeated::$MAP
-    ));
+    return new Rules(
+      new Repeated(
+        new Sequence([new Token(T_STRING), new Token(':'), $value], function($values) {
+          return [$values[0] => $values[2]];
+        }),
+        new Token(','),
+        Repeated::$MAP
+      )
+    );
   }
 ]);
 
