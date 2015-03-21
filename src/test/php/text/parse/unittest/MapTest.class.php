@@ -28,7 +28,7 @@ class MapTest extends \unittest\TestCase {
             return [$values[0] => $values[2]];
           }),
           new Token(','),
-          Collect::$IN_MAP
+          Collect::$AS_MAP
         ),
         'val' => new AnyOf([
           T_CONSTANT_ENCAPSED_STRING => function($values) { return substr($values[0], 1, -1); },

@@ -24,7 +24,7 @@ class AnnotationTest extends \unittest\TestCase {
           [new Token('['), new Apply('annotations'), new Token(']')],
           function($values) { return $values[1]; }
         ),
-        'annotations' => new Repeated(new Apply('annotation'), new Token(','), Collect::$IN_MAP),
+        'annotations' => new Repeated(new Apply('annotation'), new Token(','), Collect::$AS_MAP),
         'annotation'  => new Sequence(
           [new Token('@'), new Token(T_STRING), new Optional(new Apply('value'))],
           function($values) { return [$values[1] => $values[2]]; }

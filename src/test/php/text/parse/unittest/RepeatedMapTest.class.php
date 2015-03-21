@@ -22,7 +22,7 @@ class RepeatedMapTest extends \unittest\TestCase {
         function($values) { return [$values[0] => $values[2]]; }
       ),
       new Token(','),
-      Collect::$IN_MAP
+      Collect::$AS_MAP
     );
   }
 

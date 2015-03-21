@@ -6,10 +6,10 @@
  * @see   xp://text.parse.rules.Repeated
  */
 abstract class Collect extends \lang\Enum {
-  public static $IN_MAP, $IN_ARRAY;
+  public static $AS_MAP, $IN_ARRAY;
 
   static function __static() {
-    self::$IN_MAP= newinstance(__CLASS__, [0, 'IN_MAP'], '{
+    self::$AS_MAP= newinstance(__CLASS__, [0, 'AS_MAP'], '{
       static function __static() { }
       public function collect(&$values, $value) { $values[key($value)]= current($value); }
     }');
