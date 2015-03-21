@@ -16,8 +16,8 @@ class MatchTest extends \unittest\TestCase {
       T_DNUMBER => function($values) { return (double)$values[0]; },
       T_LNUMBER => function($values) { return (int)$values[0]; },
       '-'       => new Match([
-        T_DNUMBER => function($values) { return -1.0 * (double)$values[0]; },
-        T_LNUMBER => function($values) { return -1 * (int)$values[0]; },
+        T_DNUMBER => function($values) { return -(double)$values[0]; },
+        T_LNUMBER => function($values) { return -(int)$values[0]; },
       ])
     ]);
     $this->assertEquals($outcome, $rule->consume([], new Tokenized($input), [])->backing());
