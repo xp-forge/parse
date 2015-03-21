@@ -1,5 +1,11 @@
 <?php namespace text\parse;
 
+/**
+ * Base class for tokenizers. Subclasses implement the next() and name()
+ * methods.
+ *
+ * @test  xp://text.parse.unittest.TokensTest
+ */
 abstract class Tokens extends \lang\Object {
   private $token= null;
   private $tokens= [];
