@@ -3,14 +3,28 @@
 use text\parse\Rule;
 use text\parse\Unexpected;
 
+/**
+ * Matches tokens in a lookup map.
+ *
+ * @test  xp://text.parse.unittest.rules.MatchTest
+ */
 class Match extends Rule {
-  private $detect, $try;
+  private $lookup;
 
-  public function __construct($detect, $try= []) {
-    foreach ($detect as $token => $handler) {
-      $this->detect[$token]= $handler instanceof Rule ? $handler : new Returns($handler);
+  /**
+   * Creates a new match instance. The lookup map is defined as follows:
+   *
+   * - The keys form the tokens to match on, either numeric IDs or single characters.
+   * - The value can either be a text.parse.Rule instance (in which case the given
+   *   rule is matched), a function (in which case the token value is passed to it) or 
+   *   any value (in which case this value is simply returned).
+   *
+   * @param  [:var] $lookup
+   */
+  public function __construct($lookup) {
+    foreach ($lookup as $token => $handler) {
+      $this->lookup[$token]= $handler instanceof Rule ? $handler : new Returns($handler);
     }
-    $this->try= $try;
   }
 
   /**
@@ -23,26 +37,18 @@ class Match extends Rule {
    */
   public function consume($rules, $tokens, $values) {
     $case= $tokens->token();
-    if (isset($this->detect[$case[0]])) {
+    if (isset($this->lookup[$case[0]])) {
       $tokens->forward();
-      return $this->detect[$case[0]]->consume($rules, $tokens, [is_array($case) ? $case[1] : $case]);
+      return $this->lookup[$case[0]]->consume($rules, $tokens, [is_array($case) ? $case[1] : $case]);
     } else {
-      $begin= $tokens->position();
-      foreach ($this->try as $try) {
-        $result= $try->consume($rules, $tokens, []);
-        if ($result->matched()) return $result;
-        $tokens->backup($begin);
-      }
+      return new Unexpected(
+        sprintf(
+          'Unexpected %s, expecting any of %s',
+          $tokens->nameOf($case),
+          implode(', ', array_map([$tokens, 'nameOf'], array_keys($this->lookup)))
+        ),
+        $tokens->line()
+      );
     }
-
-    return new Unexpected(
-      sprintf(
-        'Unexpected %s, expecting any of %s or %s',
-        $tokens->nameOf(is_array($case) ? $case[0] : $case),
-        implode(', ', array_map([$tokens, 'nameOf'], array_keys($this->detect))),
-        implode(', ', array_map(['xp', 'stringOf'], $this->try))
-      ),
-      $tokens->line()
-    );
   }
 }
