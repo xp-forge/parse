@@ -12,3 +12,38 @@ Parses code based on rules.
 
 Examples
 --------
+The following example parses key/value pairs:
+
+```php
+$value= new AnyOf([
+  T_CONSTANT_ENCAPSED_STRING => function($values) { return substr($values[0], 1, -1); },
+  T_STRING                   => function($values) { return constant($values[0]); },
+  T_DNUMBER                  => function($values) { return (double)$values[0]; },
+  T_LNUMBER                  => function($values) { return (int)$values[0]; }
+]);
+
+$syntax= newinstance('text.parse.Syntax', [], [
+  'rules' => function() {
+    return new Rules(new Repeated(
+      new Sequence([new Token(T_STRING), new Token(':'), $value], function($values) {
+        return [$values[0] => $values[2]];
+      }),
+      new Token(','),
+      Repeated::$MAP
+    ));
+  }
+]);
+
+$tokens= newinstance('text.parse.Tokens', [], [
+  'input' => array_slice(token_get_all('<?=a: 1, b: 2.0, c: true', 1)),
+  'next'  => function() {
+    do {
+      $token= array_shift($this->input);
+    } while ($token && T_WHITESPACE === $token[0]);
+
+    return $token;
+  }
+]);
+
+$pairs= $syntax->parse($tokens);  // ["a" => 1, "b" => 2.0, "c" => true]
+```
