@@ -16,27 +16,25 @@ class CalculatorTest extends \unittest\TestCase {
    */
   public function setUp() {
     $this->syntax= newinstance('text.parse.Syntax', [], [
-      'rules' => function() { return new Rules(
+      'rules' => function() { return new Rules([
         new Apply('expr'),
-        [
-          'expr' => new RecursionOf(
-            [[
-              '*'       => function($values) { return $values[0] * $values[2]; },
-              '/'       => function($values) { return $values[0] / $values[2]; },
-            ], [
-              '+'       => function($values) { return $values[0] + $values[2]; },
-              '-'       => function($values) { return $values[0] - $values[2]; },
-            ]],
-            new AnyOf([
-              T_LNUMBER => function($values) { return (int)$values[0]; },
-              T_DNUMBER => function($values) { return (double)$values[0]; },
-              '-'       => new Sequence([new Apply('expr')], function($values) { return -1 * $values[1]; }),
-              '+'       => new Sequence([new Apply('expr')], function($values) { return 1 * $values[1]; }),
-              '('       => new Sequence([new Apply('expr'), new Token(')')], function($values) { return $values[1]; }),
-            ])
-          )
-        ]
-      ); }
+        'expr' => new RecursionOf(
+          [[
+            '*'       => function($values) { return $values[0] * $values[2]; },
+            '/'       => function($values) { return $values[0] / $values[2]; },
+          ], [
+            '+'       => function($values) { return $values[0] + $values[2]; },
+            '-'       => function($values) { return $values[0] - $values[2]; },
+          ]],
+          new AnyOf([
+            T_LNUMBER => function($values) { return (int)$values[0]; },
+            T_DNUMBER => function($values) { return (double)$values[0]; },
+            '-'       => new Sequence([new Apply('expr')], function($values) { return -1 * $values[1]; }),
+            '+'       => new Sequence([new Apply('expr')], function($values) { return 1 * $values[1]; }),
+            '('       => new Sequence([new Apply('expr'), new Token(')')], function($values) { return $values[1]; }),
+          ])
+        )
+      ]); }
     ]);
   }
 

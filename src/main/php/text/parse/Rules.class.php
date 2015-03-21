@@ -1,6 +1,7 @@
 <?php namespace text\parse;
 
 use lang\ElementNotFoundException;
+use lang\IllegalArgumentException;
 
 /**
  * Holds the start rule and optionally more named rules.
@@ -9,21 +10,23 @@ use lang\ElementNotFoundException;
  * @test  xp://text.parse.unittest.RulesTest
  */
 class Rules extends \lang\Object {
-  private $start, $named;
+  private $named;
 
   /**
    * Creates a new rules instance
    *
-   * @param  text.parse.Rule $start
    * @param  [:text.parse.Rule] $named
+   * @throws lang.IllegalArgumentException
    */
-  public function __construct(Rule $start, array $named= []) {
-    $this->start= $start;
+  public function __construct(array $named) {
+    if (!isset($named[0])) {
+      throw new IllegalArgumentException('No start rule defined');
+    }
     $this->named= $named;
   }
 
   /** @return text.parse.Rule */
-  public function start() { return $this->start; }
+  public function start() { return $this->named[0]; }
 
   /**
    * Returns a rule by a given name

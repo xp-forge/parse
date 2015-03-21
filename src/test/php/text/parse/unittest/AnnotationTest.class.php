@@ -17,32 +17,30 @@ class AnnotationTest extends \unittest\TestCase {
    */
   public function setUp() {
     $this->syntax= newinstance('text.parse.Syntax', [], [
-      'rules' => function() { return new Rules(
+      'rules' => function() { return new Rules([
         new Sequence(
           [new Token('['), new Apply('annotations'), new Token(']')],
           function($values) { return $values[1]; }
         ),
-        [
-          'annotations' => new Repeated(new Apply('annotation'), new Token(','), Repeated::$MAP),
-          'annotation'  => new Sequence(
-            [new Token('@'), new Token(T_STRING), new Optional(new Apply('value'))],
-            function($values) { return [$values[1] => $values[2]]; }
-          ),
-          'value'       => new Sequence(
-            [
-              new Token('('),
-              new AnyOf([
-                T_CONSTANT_ENCAPSED_STRING => function($values) { return substr($values[0], 1, -1); },
-                T_STRING                   => function($values) { return constant($values[0]); },
-                T_DNUMBER                  => function($values) { return (double)$values[0]; },
-                T_LNUMBER                  => function($values) { return (int)$values[0]; }
-              ]),
-              new Token(')')
-            ],
-            function($values) { return $values[1]; }
-          )
-        ]
-      ); }
+        'annotations' => new Repeated(new Apply('annotation'), new Token(','), Repeated::$MAP),
+        'annotation'  => new Sequence(
+          [new Token('@'), new Token(T_STRING), new Optional(new Apply('value'))],
+          function($values) { return [$values[1] => $values[2]]; }
+        ),
+        'value'       => new Sequence(
+          [
+            new Token('('),
+            new AnyOf([
+              T_CONSTANT_ENCAPSED_STRING => function($values) { return substr($values[0], 1, -1); },
+              T_STRING                   => function($values) { return constant($values[0]); },
+              T_DNUMBER                  => function($values) { return (double)$values[0]; },
+              T_LNUMBER                  => function($values) { return (int)$values[0]; }
+            ]),
+            new Token(')')
+          ],
+          function($values) { return $values[1]; }
+        )
+      ]); }
     ]);
   }
 

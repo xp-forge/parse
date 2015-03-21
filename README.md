@@ -15,25 +15,22 @@ Examples
 The following example parses key/value pairs:
 
 ```php
-$value= new AnyOf([
-  T_CONSTANT_ENCAPSED_STRING => function($values) { return substr($values[0], 1, -1); },
-  T_STRING                   => function($values) { return constant($values[0]); },
-  T_DNUMBER                  => function($values) { return (double)$values[0]; },
-  T_LNUMBER                  => function($values) { return (int)$values[0]; }
-]);
-
 $syntax= newinstance('text.parse.Syntax', [], [
-  'rules' => function() {
-    return new Rules(
-      new Repeated(
-        new Sequence([new Token(T_STRING), new Token(':'), $value], function($values) {
-          return [$values[0] => $values[2]];
-        }),
-        new Token(','),
-        Repeated::$MAP
-      )
-    );
-  }
+  'rules' => function() { return new Rules([
+    new Repeated(
+      new Sequence([new Token(T_STRING), new Token(':'), new Apply('val')], function($values) {
+        return [$values[0] => $values[2]];
+      }),
+      new Token(','),
+      Repeated::$MAP
+    ),
+    'val' => new AnyOf([
+      T_CONSTANT_ENCAPSED_STRING => function($values) { return substr($values[0], 1, -1); },
+      T_STRING                   => function($values) { return constant($values[0]); },
+      T_DNUMBER                  => function($values) { return (double)$values[0]; },
+      T_LNUMBER                  => function($values) { return (int)$values[0]; }
+    ])
+  ]); }
 ]);
 
 $tokens= newinstance('text.parse.Tokens', [], [

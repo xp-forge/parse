@@ -3,27 +3,33 @@
 use text\parse\Rules;
 use text\parse\Returns;
 use lang\ElementNotFoundException;
+use lang\IllegalArgumentException;
 
 class RulesTest extends \unittest\TestCase {
 
   #[@test]
   public function can_create() {
-    new Rules(new Returns(null));
+    new Rules([new Returns(null)]);
   }
 
   #[@test]
   public function can_create_with_more_named_rules() {
-    new Rules(new Returns(null), ['param' => new Returns('param')]);
+    new Rules([new Returns(null), 'param' => new Returns('param')]);
+  }
+
+  #[@test, @expect(IllegalArgumentException::class)]
+  public function cannot_create_without_start_rule() {
+    new Rules(['param' => new Returns('param')]);
   }
 
   #[@test]
   public function get_rule_by_name() {
     $param= new Returns('param');
-    $this->assertEquals($param, (new Rules(new Returns(null), ['param' => $param]))->named('param'));
+    $this->assertEquals($param, (new Rules([new Returns(null), 'param' => $param]))->named('param'));
   }
 
   #[@test, @expect(ElementNotFoundException::class)]
   public function getting_non_existant_rule_raises_exception() {
-    (new Rules(new Returns(null), []))->named('non-existant');
+    (new Rules([new Returns(null)]))->named('non-existant');
   }
 }
