@@ -1,8 +1,18 @@
 <?php namespace text\parse;
 
+/**
+ * Indicates a consume() call returns values.
+ *
+ * @see  xp://text.parse.Rule#consume
+ */
 class Values extends Consumed {
   private $backing;
 
+  /**
+   * Constructor
+   *
+   * @param  var $values
+   */
   public function __construct($values) {
     $this->backing= $values;
   }

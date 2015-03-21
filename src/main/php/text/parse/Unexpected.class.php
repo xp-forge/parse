@@ -1,7 +1,19 @@
 <?php namespace text\parse;
 
+/**
+ * Indicates a consume() yielded unexpected tokens.
+ *
+ * @see  xp://text.parse.Rule#consume
+ */
 class Unexpected extends Consumed {
-  
+  private $message, $line;
+
+  /**
+   * Constructor
+   *
+   * @param  string $message
+   * @param  int $line
+   */
   public function __construct($message, $line) {
     $this->message= $message;
     $this->line= $line;
