@@ -7,7 +7,7 @@ use text\parse\rules\Returns;
 use text\parse\rules\Apply;
 use text\parse\rules\Token;
 use text\parse\rules\RecursionOf;
-use text\parse\rules\AnyOf;
+use text\parse\rules\Match;
 
 class CalculatorTest extends \unittest\TestCase {
   private $syntax;
@@ -27,7 +27,7 @@ class CalculatorTest extends \unittest\TestCase {
             '+'       => function($values) { return $values[0] + $values[2]; },
             '-'       => function($values) { return $values[0] - $values[2]; },
           ]],
-          new AnyOf([
+          new Match([
             T_LNUMBER => function($values) { return (int)$values[0]; },
             T_DNUMBER => function($values) { return (double)$values[0]; },
             '-'       => new Sequence([new Apply('expr')], function($values) { return -1 * $values[1]; }),

@@ -7,7 +7,7 @@ use text\parse\rules\Apply;
 use text\parse\rules\Token;
 use text\parse\rules\ListOf;
 use text\parse\rules\Repeated;
-use text\parse\rules\AnyOf;
+use text\parse\rules\Match;
 use text\parse\rules\Optional;
 use text\parse\rules\Collect;
 
@@ -32,7 +32,7 @@ class AnnotationTest extends \unittest\TestCase {
         'value'       => new Sequence(
           [
             new Token('('),
-            new AnyOf([
+            new Match([
               T_CONSTANT_ENCAPSED_STRING => function($values) { return substr($values[0], 1, -1); },
               T_STRING                   => function($values) { return constant($values[0]); },
               T_DNUMBER                  => function($values) { return (double)$values[0]; },
