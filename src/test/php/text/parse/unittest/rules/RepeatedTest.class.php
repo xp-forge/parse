@@ -31,4 +31,10 @@ class RepeatedTest extends \unittest\TestCase {
     $tokens= new Tokenized('use a; use b;');
     $this->assertEquals(['a', 'b'], $this->fixture->consume([], $tokens, [])->backing());
   }
+
+  #[@test]
+  public function empty_return() {
+    $tokens= new Tokenized('');
+    $this->assertEquals([], $this->fixture->consume([], $tokens, [])->backing());
+  }
 }
