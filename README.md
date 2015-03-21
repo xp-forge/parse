@@ -21,6 +21,7 @@ use text\parse\rules\Sequence;
 use text\parse\rules\Token;
 use text\parse\rules\Apply;
 use text\parse\rules\AnyOf;
+use text\parse\rules\Collect;
 
 $syntax= newinstance('text.parse.Syntax', [], [
   'rules' => function() { return new Rules([
