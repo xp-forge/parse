@@ -37,7 +37,7 @@ $syntax= newinstance('text.parse.Syntax', [], [
 ]);
 
 $tokens= newinstance('text.parse.Tokens', [], [
-  'input' => array_slice(token_get_all('<?=a: 1, b: 2.0, c: true', 1)),
+  'input' => array_slice(token_get_all('<?=a: 1, b: 2.0, c: true, d: "D"', 1)),
   'next'  => function() {
     do {
       $token= array_shift($this->input);
@@ -46,5 +46,5 @@ $tokens= newinstance('text.parse.Tokens', [], [
   }
 ]);
 
-$pairs= $syntax->parse($tokens);  // ["a" => 1, "b" => 2.0, "c" => true]
+$pairs= $syntax->parse($tokens);  // ["a" => 1, "b" => 2.0, "c" => true, "d" => "D"]
 ```
