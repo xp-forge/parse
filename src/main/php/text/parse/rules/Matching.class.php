@@ -1,6 +1,8 @@
-<?php namespace text\parse;
+<?php namespace text\parse\rules;
 
-class Matching extends Rule {
+use text\parse\Values;
+
+class Matching extends \text\parse\Rule {
   private $tokens;
   
   public function __construct($tokens) {
@@ -26,6 +28,11 @@ class Matching extends Rule {
 
   private function nameOf($token) { return is_int($token) ? token_name($token) : '`'.$token.'`'; }
 
+  /**
+   * Creates a string representation
+   *
+   * @return string
+   */
   public function toString() {
     return $this->getClassName().'['.implode(' | ', array_map([$this, 'nameOf'], $this->tokens)).']';
   }

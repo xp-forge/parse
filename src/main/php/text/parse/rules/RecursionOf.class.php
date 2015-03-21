@@ -1,6 +1,9 @@
-<?php namespace text\parse;
+<?php namespace text\parse\rules;
 
-class RecursionOf extends Rule {
+use text\parse\Values;
+use text\parse\Unexpected;
+
+class RecursionOf extends \text\parse\Rule {
   private $tokens, $precedence, $terminal;
 
   public function __construct($definition, $terminal) {

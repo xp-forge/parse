@@ -1,7 +1,7 @@
 <?php namespace text\parse\unittest;
 
 use text\parse\Rules;
-use text\parse\Returns;
+use text\parse\rules\Returns;
 
 class SyntaxTest extends \unittest\TestCase {
 

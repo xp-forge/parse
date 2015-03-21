@@ -1,13 +1,13 @@
 <?php namespace text\parse\unittest;
 
 use text\parse\Rules;
-use text\parse\Sequence;
-use text\parse\Apply;
-use text\parse\Token;
-use text\parse\ListOf;
-use text\parse\Repeated;
-use text\parse\AnyOf;
-use text\parse\Optional;
+use text\parse\rules\Sequence;
+use text\parse\rules\Apply;
+use text\parse\rules\Token;
+use text\parse\rules\ListOf;
+use text\parse\rules\Repeated;
+use text\parse\rules\AnyOf;
+use text\parse\rules\Optional;
 
 class AnnotationTest extends \unittest\TestCase {
   private $syntax;

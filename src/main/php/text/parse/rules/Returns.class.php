@@ -1,6 +1,8 @@
-<?php namespace text\parse;
+<?php namespace text\parse\rules;
 
-class Returns extends Rule {
+use text\parse\Values;
+
+class Returns extends \text\parse\Rule {
   private $value;
 
   /**

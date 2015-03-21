@@ -1,6 +1,8 @@
-<?php namespace text\parse;
+<?php namespace text\parse\rules;
 
-class Apply extends Rule {
+use text\parse\Values;
+
+class Apply extends \text\parse\Rule {
   private $name, $func;
 
   public function __construct($name, $func= null) {
@@ -18,8 +20,7 @@ class Apply extends Rule {
    */
   public function consume($rules, $tokens, $values) {
     $result= $rules->named($this->name)->consume($rules, $tokens, []);
-    if ($this->func && $result->matched()) {
-      $f= $this->func;
+    if ($f= $this->func && $result->matched()) {
       $values[]= $result->backing();
       return new Values($f($values, $tokens));
     } else {
@@ -27,6 +28,11 @@ class Apply extends Rule {
     }
   }
 
+  /**
+   * Creates a string representation
+   *
+   * @return string
+   */
   public function toString() {
     return $this->getClassName().'(->'.$this->name.')';
   }

@@ -1,6 +1,9 @@
-<?php namespace text\parse;
+<?php namespace text\parse\rules;
 
-class Token extends Rule {
+use text\parse\Values;
+use text\parse\Unexpected;
+
+class Token extends \text\parse\Rule {
   private $token;
 
   /**

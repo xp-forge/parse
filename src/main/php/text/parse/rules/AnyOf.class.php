@@ -1,4 +1,7 @@
-<?php namespace text\parse;
+<?php namespace text\parse\rules;
+
+use text\parse\Rule;
+use text\parse\Unexpected;
 
 class AnyOf extends Rule {
   private $detect, $try;

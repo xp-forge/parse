@@ -1,8 +1,8 @@
-<?php namespace text\parse;
+<?php namespace text\parse\rules;
 
-use lang\FormatException;
+use text\parse\Values;
 
-class Optional extends Rule {
+class Optional extends \text\parse\Rule {
   private $rule, $default;
   
   public function __construct($rule, $default= null) {

@@ -1,8 +1,8 @@
 <?php namespace text\parse\unittest;
 
-use text\parse\Optional;
-use text\parse\Token;
-use text\parse\Sequence;
+use text\parse\rules\Optional;
+use text\parse\rules\Token;
+use text\parse\rules\Sequence;
 
 class OptionalTest extends \unittest\TestCase {
   private $fixture;

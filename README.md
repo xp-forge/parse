@@ -16,11 +16,11 @@ The following example parses key/value pairs, built on PHP's tokenizer extension
 
 ```php
 use text\parse\Rules;
-use text\parse\Repeated;
-use text\parse\Sequence;
-use text\parse\Token;
-use text\parse\Apply;
-use text\parse\AnyOf;
+use text\parse\rules\Repeated;
+use text\parse\rules\Sequence;
+use text\parse\rules\Token;
+use text\parse\rules\Apply;
+use text\parse\rules\AnyOf;
 
 $syntax= newinstance('text.parse.Syntax', [], [
   'rules' => function() { return new Rules([

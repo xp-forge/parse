@@ -1,8 +1,9 @@
-<?php namespace text\parse;
+<?php namespace text\parse\rules;
 
-use lang\FormatException;
+use text\parse\Values;
+use text\parse\Unmatched;
 
-class Sequence extends Rule {
+class Sequence extends \text\parse\Rule {
   private $rules, $func;
 
   public function __construct($rules, $func= null) {

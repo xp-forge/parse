@@ -1,8 +1,8 @@
 <?php namespace text\parse\unittest;
 
-use text\parse\Repeated;
-use text\parse\Token;
-use text\parse\Sequence;
+use text\parse\rules\Repeated;
+use text\parse\rules\Token;
+use text\parse\rules\Sequence;
 
 class RepeatedTest extends \unittest\TestCase {
   private $fixture;

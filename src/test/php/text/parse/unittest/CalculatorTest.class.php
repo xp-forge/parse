@@ -1,12 +1,12 @@
 <?php namespace text\parse\unittest;
 
 use text\parse\Rules;
-use text\parse\Sequence;
-use text\parse\Returns;
-use text\parse\Apply;
-use text\parse\Token;
-use text\parse\RecursionOf;
-use text\parse\AnyOf;
+use text\parse\rules\Sequence;
+use text\parse\rules\Returns;
+use text\parse\rules\Apply;
+use text\parse\rules\Token;
+use text\parse\rules\RecursionOf;
+use text\parse\rules\AnyOf;
 
 class CalculatorTest extends \unittest\TestCase {
   private $syntax;

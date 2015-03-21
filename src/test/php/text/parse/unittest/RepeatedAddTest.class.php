@@ -1,9 +1,9 @@
 <?php namespace text\parse\unittest;
 
-use text\parse\Repeated;
-use text\parse\Token;
-use text\parse\Sequence;
-use text\parse\Optional;
+use text\parse\rules\Repeated;
+use text\parse\rules\Token;
+use text\parse\rules\Sequence;
+use text\parse\rules\Optional;
 
 class RepeatedAddTest extends \unittest\TestCase {
   private $fixture;
