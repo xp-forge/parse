@@ -40,7 +40,6 @@ $tokens= newinstance('text.parse.Tokens', [], [
     do {
       $token= array_shift($this->input);
     } while ($token && T_WHITESPACE === $token[0]);
-
     return $token;
   }
 ]);
