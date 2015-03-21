@@ -1,4 +1,4 @@
-<?php namespace text\parse\unittest;
+<?php namespace text\parse\unittest\rules;
 
 use text\parse\Tokenized;
 use text\parse\rules\Repeated;
