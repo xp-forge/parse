@@ -2,6 +2,7 @@
 
 use text\parse\Rule;
 use text\parse\Unexpected;
+use lang\IllegalArgumentException;
 
 /**
  * Tries to match one of the given rules. Returns the values of the first
@@ -20,8 +21,12 @@ class OneOf extends Rule {
    * Creates a new instance
    *
    * @param  text.parse.Rule[] $rules
+   * @throws lang.IllegalArgumentException
    */
   public function __construct(array $rules) {
+    if (empty($rules)) {
+      throw new IllegalArgumentException('Rules may not be empty');
+    }
     $this->rules= $rules;
   }
 
@@ -34,6 +39,7 @@ class OneOf extends Rule {
    * @return text.parse.Consumed
    */
   public function consume($rules, $tokens, $values) {
+    $token= $tokens->token();
     foreach ($this->rules as $try) {
       $result= $try->consume($rules, $tokens, []);
       if ($result->matched()) return $result;
@@ -42,7 +48,7 @@ class OneOf extends Rule {
     return new Unexpected(
       sprintf(
         'Unexpected %s, expecting one of %s',
-        $tokens->nameOf($tokens->token()),
+        $tokens->nameOf($token),
         implode(', ', array_map(['xp', 'stringOf'], $this->rules))
       ),
       $tokens->line()

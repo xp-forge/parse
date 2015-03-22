@@ -30,7 +30,7 @@ class MatchTest extends \unittest\TestCase {
       T_LNUMBER => function($values) { /* Intentionally empty */ }
     ]);
     $this->assertEquals(
-      'Unexpected T_STRING<hello>, expecting any of T_DNUMBER, T_LNUMBER',
+      'Unexpected T_STRING<hello>, expecting to match T_DNUMBER, T_LNUMBER',
       $rule->consume([], new Tokenized('hello'), [])->error()
     );
   }

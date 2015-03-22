@@ -31,7 +31,10 @@ class ArrayTest extends \unittest\TestCase {
             [new Token(T_STRING), new Token(T_DOUBLE_COLON), new Token(T_CLASS)],
             function($values) { return \xp::nameOf($values[0]); }
           ),
-          new Token(T_STRING)
+          new Sequence(
+            [new Token(T_STRING)],
+            function($values) { return $values[0]; }
+          )
         ])
       ]); }
     ]);

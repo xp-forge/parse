@@ -51,4 +51,13 @@ class Match extends Rule {
       );
     }
   }
+
+  /**
+   * Creates a string representation
+   *
+   * @return string
+   */
+  public function toString() {
+    return $this->getClassName().'@'.\xp::stringOf($this->lookup);
+  }
 }

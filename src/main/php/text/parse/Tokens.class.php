@@ -91,6 +91,6 @@ abstract class Tokens extends \lang\Object {
   public function backup($to) {
     // echo "<<$to\n";
     $this->position= $to;
-    $this->token= null;
+    $this->forward();
   }
 }
