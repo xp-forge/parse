@@ -43,7 +43,7 @@ class Match extends Rule {
     } else {
       return new Unexpected(
         sprintf(
-          'Unexpected %s, expecting any of %s',
+          'Unexpected %s, expecting to match %s',
           $tokens->nameOf($case),
           implode(', ', array_map([$tokens, 'nameOf'], array_keys($this->lookup)))
         ),
