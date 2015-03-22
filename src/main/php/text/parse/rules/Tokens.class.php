@@ -45,6 +45,6 @@ class Tokens extends \text\parse\Rule {
    * @return string
    */
   public function toString() {
-    return $this->getClassName().'['.implode(' | ', $this->tokens).']';
+    return $this->getClassName().'['.implode(' | ', array_keys($this->tokens)).']';
   }
 }
