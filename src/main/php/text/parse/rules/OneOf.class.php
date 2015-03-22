@@ -45,13 +45,6 @@ class OneOf extends Rule {
       if ($result->matched()) return $result;
     }
 
-    return new Unexpected(
-      sprintf(
-        'Unexpected %s, expecting one of %s',
-        $tokens->nameOf($token),
-        implode(', ', array_map(['xp', 'stringOf'], $this->rules))
-      ),
-      $tokens->line()
-    );
+    return new Unexpected('Unexpected '.$tokens->nameOf($token), $tokens->line());
   }
 }

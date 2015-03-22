@@ -37,11 +37,7 @@ class OneOfTest extends \unittest\TestCase {
 
   #[@test]
   public function no_rules_matches() {
-    $message= 'Unexpected T_LNUMBER<1>, expecting one of ';
-    $this->assertEquals($message, substr(
-      $this->fixture()->consume([], new Tokenized('1'), [])->error(),
-      0,
-      strlen($message)
-    ));
+    $message= 'Unexpected T_LNUMBER<1>';
+    $this->assertEquals($message, $this->fixture()->consume([], new Tokenized('1'), [])->error());
   }
 }
