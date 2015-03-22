@@ -62,7 +62,11 @@ Be aware of the fact that this will match three dots, or three strings, or a str
 The rule *Apply(RuleName)* will defer handling to a given named rule passed to the `Rules` constructor.
 
 ### Match
-The rule *Match([T1 => Rule1[, T2 => Rule2[, ...]]])* matches rules based on the initial tokens used in the lookup map.
+The rule *Match([T1 => Rule1[, T2 => Rule2[, ...]]])* matches rules based on the initial tokens used in the lookup map. High-performance due to `isset()`-based lookups, though less flexible as `OneOf`.
+
+### OneOf
+The rule *OneOf([Rule1[, Rule2[, ...]]])* matches rules in the order specified and returns the values of the first rule
+to match.
 
 ### Sequence
 The rule *Sequence([Rule1[, Rule2[, ...]]], function)* matches a sequence of rules in the order specified, and passed the matched values to the handler function.
