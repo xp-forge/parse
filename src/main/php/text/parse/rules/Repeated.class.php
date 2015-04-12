@@ -18,9 +18,9 @@ class Repeated extends Rule {
    *
    * @param  text.parse.Rule $rule
    * @param  text.parse.Rule $delimiter
-   * @param  text.parse.rules.Collect $collect
+   * @param  text.parse.rules.Collection $collect
    */
-  public function __construct(Rule $rule, Rule $delimiter= null, Collect $collect= null) {
+  public function __construct(Rule $rule, Rule $delimiter= null, Collection $collect= null) {
     $this->rule= $rule;
     $this->delimiter= $delimiter;
     $this->collection= $collect ?: Collect::$IN_ARRAY;
