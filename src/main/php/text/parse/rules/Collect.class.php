@@ -5,7 +5,7 @@
  *
  * @see   xp://text.parse.rules.Repeated
  */
-abstract class Collect extends \lang\Enum {
+abstract class Collect extends \lang\Enum implements Collection {
   public static $AS_MAP, $IN_ARRAY;
 
   static function __static() {
@@ -18,12 +18,4 @@ abstract class Collect extends \lang\Enum {
       public function collect(&$values, $value) { $values[]= $value; }
     }');
   }
-
-  /**
-   * Collects values
-   *
-   * @param  var $values
-   * @param  var $value
-   */
-  public abstract function collect(&$values, $value);
 }
