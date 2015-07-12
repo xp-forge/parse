@@ -29,7 +29,7 @@ class ArrayTest extends \unittest\TestCase {
           ]),
           new Sequence(
             [new Token(T_STRING), new Token(T_DOUBLE_COLON), new Token(T_CLASS)],
-            function($values) { return \xp::nameOf($values[0]); }
+            function($values) { return $values[0]; }
           ),
           new Sequence(
             [new Token(T_STRING)],
@@ -61,7 +61,7 @@ class ArrayTest extends \unittest\TestCase {
   #[@test]
   public function array_of_classes() {
     $tokens= new Tokenized('[Object::class, Throwable::class]');
-    $this->assertEquals(['lang.Object', 'lang.Throwable'], $this->syntax->parse($tokens));
+    $this->assertEquals(['Object', 'Throwable'], $this->syntax->parse($tokens));
   }
 
   #[@test]
