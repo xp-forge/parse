@@ -28,6 +28,15 @@ class Rules extends \lang\Object {
   /** @return text.parse.Rule */
   public function start() { return $this->named[0]; }
 
+  public function code() {
+    $code= '$rules= ["start"]; while (null !== ($rule= array_shift($rules))) { echo "@$rule: "; var_dump($tokens->token()); switch ($rule) {';
+    foreach ($this->named as $name => $rule) {
+      $code.= "\ncase ".(0 === $name ? '"start"' : '"'.$name.'"').': echo "<$rule>\n"; $values= []; '.$rule->code().' echo "</$rule>\n"; break;';
+    }
+    return $code.'}} return $result;';
+  }
+
+
   /**
    * Returns a rule by a given name
    *

@@ -10,6 +10,12 @@ class Optional extends \text\parse\Rule {
     $this->default= $default;
   }
 
+  public function code() {
+    return $this->rule->code().' if (!$result->matched()) {
+      $result= new \text\parse\Values('.var_export($this->default, 1).');
+    }';
+  }
+
   /**
    * Consume
    *

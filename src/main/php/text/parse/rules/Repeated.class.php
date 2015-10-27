@@ -26,6 +26,22 @@ class Repeated extends Rule {
     $this->collection= $collect ?: Collect::$IN_ARRAY;
   }
 
+  public function code() {
+    $code= "\n".'  echo "LOOPING";'; // loop_'.strtr($this->hashCode(), '.', '_').':';
+    $code.= $this->rule->code();
+    /*
+    $code.= '
+       if ($result->matched()) {
+         echo "COLLECT "; var_dump($result);
+         goto loop_'.strtr($this->hashCode(), '.', '_').';
+       }
+
+       $result= new \text\parse\Values($values);
+    ';
+    */
+    return $code;
+  }
+
   /**
    * Consume
    *

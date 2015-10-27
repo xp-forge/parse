@@ -14,6 +14,8 @@ abstract class Rule extends \lang\Object {
    */
   public abstract function consume($rules, $tokens, $values);
 
+  public function code() { return ';'; }
+
   /**
    * Evaluate rules and returns results
    *

@@ -22,30 +22,16 @@ class AnnotationTest extends \unittest\TestCase {
       'rules' => function() { return new Rules([
         new Sequence(
           [new Token('['), new Apply('annotations'), new Token(']')],
-          function($values) { return $values[1]; }
+          '$result= ["annotation" => $values[1]];'
         ),
-        'annotations' => new Repeated(new Apply('annotation'), new Token(','), Collect::$AS_MAP),
-        'annotation'  => new Sequence(
-          [new Token('@'), new Token(T_STRING), new Optional(new Apply('value'))],
-          function($values) { return [$values[1] => $values[2]]; }
-        ),
-        'value'       => new Sequence(
-          [
-            new Token('('),
-            new Match([
-              T_CONSTANT_ENCAPSED_STRING => function($values) { return substr($values[0], 1, -1); },
-              T_STRING                   => function($values) { return constant($values[0]); },
-              T_DNUMBER                  => function($values) { return (double)$values[0]; },
-              T_LNUMBER                  => function($values) { return (int)$values[0]; }
-            ]),
-            new Token(')')
-          ],
-          function($values) { return $values[1]; }
+        'annotations' => new Sequence(
+          [new Token('@'), new Token(T_STRING)],
+          '$result= $values[1];'
         )
       ]); }
     ]);
   }
-
+/*
   #[@test]
   public function test_annotation() {
     $tokens= new Tokenized('[@test]');
@@ -74,5 +60,16 @@ class AnnotationTest extends \unittest\TestCase {
   public function limit_annotation_with_constant_value() {
     $tokens= new Tokenized('[@limit(1.4)]');
     $this->assertEquals(['limit' => 1.4], $this->syntax->parse($tokens));
+  }
+*/
+  #[@test]
+  public function code() {
+    var_dump($this->syntax->code());
+    echo "==============================\n";
+    $tokens= new Tokenized('[@test]');
+    $this->assertEquals(
+      ['annotation' => 'test'],
+      eval($this->syntax->code())
+    );
   }
 }

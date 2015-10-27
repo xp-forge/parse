@@ -11,6 +11,16 @@ class Sequence extends \text\parse\Rule {
     $this->func= $func;
   }
 
+  public function code() {
+    $code= '';
+    foreach ($this->rules as $rule) {
+      $code.= $rule->code();
+      $code.= '$values[]= $result;';
+    }
+    $code.= $this->func;
+    return $code;
+  }
+
   /**
    * Consume
    *

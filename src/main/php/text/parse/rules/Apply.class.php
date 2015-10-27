@@ -14,6 +14,10 @@ class Apply extends \text\parse\Rule {
     $this->name= $name;
   }
 
+  public function code() {
+    return 'array_unshift($rules, "'.$this->hashCode().'"); array_unshift($rules, "'.$this->name.'"); break;'."\n".'  case "'.$this->hashCode().'":';
+  }
+
   /**
    * Consume
    *

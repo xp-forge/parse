@@ -33,4 +33,6 @@ abstract class Syntax extends \lang\Object {
   public function parse(Tokens $input) {
     return $this->rules->start()->evaluate($this->rules, $input);
   }
+
+  public function code() { return $this->rules->code(); }
 }
