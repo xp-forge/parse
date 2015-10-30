@@ -3,6 +3,7 @@
 use lang\FormatException;
 
 abstract class Rule extends \lang\Object {
+  private static $var= 0;
 
   /**
    * Consume
@@ -14,7 +15,28 @@ abstract class Rule extends \lang\Object {
    */
   public abstract function consume($rules, $tokens, $values);
 
-  public function code() { return ';'; }
+  /**
+   * Generates code
+   *
+   * @return string
+   */
+  public function code() {
+    return 'throw new \lang\MethodNotImplementedException(\'Not overridden in '.nameof($this).'\', \'code\');';
+  }
+
+  /**
+   * Generates a unique variable
+   *
+   * @return string
+   */
+  protected function var() { return '$_'.(self::$var++); }
+
+  /**
+   * Generates a unique id
+   *
+   * @return string
+   */
+  protected function id() { return self::$var++; }
 
   /**
    * Evaluate rules and returns results

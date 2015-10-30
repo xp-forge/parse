@@ -15,7 +15,8 @@ class Apply extends \text\parse\Rule {
   }
 
   public function code() {
-    return 'array_unshift($rules, "'.$this->hashCode().'"); array_unshift($rules, "'.$this->name.'"); break;'."\n".'  case "'.$this->hashCode().'":';
+    $id= $this->id();
+    return '$rules[]= '.$id.'; goto R'.strtr($this->name, '-.', '__').'; } if ('.$id.' === $rule) {';
   }
 
   /**

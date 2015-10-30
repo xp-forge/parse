@@ -12,13 +12,15 @@ class Sequence extends \text\parse\Rule {
   }
 
   public function code() {
-    $code= '';
+    $var= $this->var();
+
+    $code= $var.'= [];';
     foreach ($this->rules as $rule) {
       $code.= $rule->code();
-      $code.= '$values[]= $result;';
+      $code.= $var.'[]= $result;';
     }
-    $code.= $this->func;
-    return $code;
+
+    return $code.strtr($this->func, ['$values' => $var]);
   }
 
   /**

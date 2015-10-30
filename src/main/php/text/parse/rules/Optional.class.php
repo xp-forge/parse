@@ -11,9 +11,9 @@ class Optional extends \text\parse\Rule {
   }
 
   public function code() {
-    return $this->rule->code().' if (!$result->matched()) {
-      $result= new \text\parse\Values('.var_export($this->default, 1).');
-    }';
+    $code= $this->rule->code();
+    $code.= 'if ($errors) { $errors= []; $result= null; }';
+    return $code;
   }
 
   /**

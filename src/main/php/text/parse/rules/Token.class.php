@@ -20,7 +20,7 @@ class Token extends \text\parse\Rule {
       $tokens->forward();
       $result= is_array($token) ? $token[1] : $token;
     } else {
-      return new \text\parse\Unexpected(sprintf(
+      $errors[]= new \text\parse\Unexpected(sprintf(
         "Unexpected `%s`, expected `'.(is_int($this->token) ? token_name($this->token) : $this->token).'` [state %s]",
         is_array($token) ? token_name($token[0]) : $token,
         $rule

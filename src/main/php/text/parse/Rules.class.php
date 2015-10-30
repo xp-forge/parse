@@ -29,11 +29,15 @@ class Rules extends \lang\Object {
   public function start() { return $this->named[0]; }
 
   public function code() {
-    $code= '$rules= ["start"]; while (null !== ($rule= array_shift($rules))) { echo "@$rule: "; var_dump($tokens->token()); switch ($rule) {';
+    $code= '$errors= []; $rules= [0]; while (null !== ($rule= array_pop($rules))) {';
     foreach ($this->named as $name => $rule) {
-      $code.= "\ncase ".(0 === $name ? '"start"' : '"'.$name.'"').': echo "<$rule>\n"; $values= []; '.$rule->code().' echo "</$rule>\n"; break;';
+      if (0 === $name) {
+        $code.= 'if (0 === $rule) { '.$rule->code().'}';
+      } else {
+        $code.= 'else if (\''.$name.'\' === $rule) { R'.strtr($name, '-.', '__').':'.$rule->code().'}';
+      }
     }
-    return $code.'}} return $result;';
+    return $code.'} return $errors ?: $result;';
   }
 
 

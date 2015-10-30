@@ -22,10 +22,28 @@ class AnnotationTest extends \unittest\TestCase {
       'rules' => function() { return new Rules([
         new Sequence(
           [new Token('['), new Apply('annotations'), new Token(']')],
-          '$result= ["annotation" => $values[1]];'
+          '$result= $values[1];'
         ),
-        'annotations' => new Sequence(
-          [new Token('@'), new Token(T_STRING)],
+        'annotations' => new Repeated(
+          new Apply('annotation'),
+          new Token(','),
+          '$values= array_merge($values, $result);'
+        ),
+        'annotation' => new Sequence(
+          [new Token('@'), new Token(T_STRING), new Optional(new Apply('expr'))],
+          '$result= [$values[1] => $values[2]];'
+        ),
+        'expr' => new Sequence(
+          [
+            new Token('('),
+            new Match([
+              T_CONSTANT_ENCAPSED_STRING => '$result= substr($values[0], 1, -1);',
+              T_STRING                   => '$result= constant($values[0]);',
+              T_LNUMBER                  => '$result= (int)$values[0];',
+              T_DNUMBER                  => '$result= (double)$values[0];',
+            ]),
+            new Token(')')
+          ],
           '$result= $values[1];'
         )
       ]); }
@@ -61,15 +79,40 @@ class AnnotationTest extends \unittest\TestCase {
     $tokens= new Tokenized('[@limit(1.4)]');
     $this->assertEquals(['limit' => 1.4], $this->syntax->parse($tokens));
   }
-*/
+
   #[@test]
   public function code() {
     var_dump($this->syntax->code());
     echo "==============================\n";
     $tokens= new Tokenized('[@test]');
     $this->assertEquals(
-      ['annotation' => 'test'],
+      ['test' => null],
       eval($this->syntax->code())
+    );
+  }
+
+  #[@test]
+  public function code2() {
+    $code= $this->syntax->code();
+    var_dump($code);
+    echo "==============================\n";
+    $tokens= new Tokenized('[@test, @values]');
+    $this->assertEquals(
+      ['test' => null, 'values' => null],
+      eval($code)
+    );
+  }
+*/
+
+  #[@test]
+  public function code2() {
+    $code= $this->syntax->code();
+    var_dump($code);
+    echo "==============================\n";
+    $tokens= new Tokenized('[@test, @rule("admin")]');
+    $this->assertEquals(
+      ['test' => null, 'rule' => 'admin'],
+      eval($code)
     );
   }
 }

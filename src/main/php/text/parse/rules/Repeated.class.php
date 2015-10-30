@@ -20,25 +20,26 @@ class Repeated extends Rule {
    * @param  text.parse.Rule $delimiter
    * @param  text.parse.rules.Collection $collect
    */
-  public function __construct(Rule $rule, Rule $delimiter= null, Collection $collect= null) {
+  public function __construct(Rule $rule, Rule $delimiter= null, $collect= null) {
     $this->rule= $rule;
     $this->delimiter= $delimiter;
     $this->collection= $collect ?: Collect::$IN_ARRAY;
   }
 
   public function code() {
-    $code= "\n".'  echo "LOOPING";'; // loop_'.strtr($this->hashCode(), '.', '_').':';
-    $code.= $this->rule->code();
-    /*
-    $code.= '
-       if ($result->matched()) {
-         echo "COLLECT "; var_dump($result);
-         goto loop_'.strtr($this->hashCode(), '.', '_').';
-       }
+    $id= $this->id();
 
-       $result= new \text\parse\Values($values);
-    ';
-    */
+    $code= '$v'.$id.'= []; l'.$id.':';
+    $code.= $this->rule->code();
+    $code.= 'if ($errors) goto e'.$id.';';
+    $code.= strtr($this->collection, ['$values' => '$v'.$id]);
+
+    if ($this->delimiter) {
+      $code.= $this->delimiter->code();
+      $code.= 'if ($errors) { $errors= []; goto e'.$id.'; }';
+    }
+
+    $code.= 'goto l'.$id.'; e'.$id.': $result= $v'.$id.';';
     return $code;
   }
 
