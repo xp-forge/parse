@@ -12,7 +12,7 @@ class Sequence extends \text\parse\Rule {
   }
 
   public function code() {
-    $var= $this->var();
+    $var= $this->variable();
 
     $code= $var.'= [];';
     foreach ($this->rules as $rule) {

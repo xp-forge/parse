@@ -29,7 +29,7 @@ class Match extends Rule {
   }
 
   public function code() {
-    $var= $this->var();
+    $var= $this->variable();
 
     $code= '$token= $tokens->token();';
     foreach ($this->lookups as $token => $handler) {

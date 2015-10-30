@@ -29,7 +29,7 @@ abstract class Rule extends \lang\Object {
    *
    * @return string
    */
-  protected function var() { return '$_'.(self::$var++); }
+  protected function variable() { return '$_'.(self::$var++); }
 
   /**
    * Generates a unique id
