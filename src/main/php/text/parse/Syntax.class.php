@@ -30,8 +30,20 @@ abstract class Syntax extends \lang\Object {
    * @return var
    * @throws lang.FormatException
    */
-  public function parse(Tokens $input) {
+  public function evaluate(Tokens $input) {
     return $this->rules->start()->evaluate($this->rules, $input);
+  }
+
+  /**
+   * Parses input
+   *
+   * @param  text.parse.Tokens $tokens
+   * @return var
+   * @throws lang.FormatException
+   */
+  public function parse(Tokens $tokens) {
+    $code= $this->rules->code();
+    return eval($code);
   }
 
   public function code() { return $this->rules->code(); }

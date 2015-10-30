@@ -21,6 +21,6 @@ class SyntaxTest extends \unittest\TestCase {
       'next' => function() { return null; },
       'name' => function($token) { return 'undefined'; }
     ]);
-    $this->assertEquals('Test', $syntax->parse($tokens));
+    $this->assertEquals('Test', $syntax->evaluate($tokens));
   }
 }

@@ -49,7 +49,7 @@ class AnnotationTest extends \unittest\TestCase {
       ]); }
     ]);
   }
-/*
+
   #[@test]
   public function test_annotation() {
     $tokens= new Tokenized('[@test]');
@@ -78,41 +78,5 @@ class AnnotationTest extends \unittest\TestCase {
   public function limit_annotation_with_constant_value() {
     $tokens= new Tokenized('[@limit(1.4)]');
     $this->assertEquals(['limit' => 1.4], $this->syntax->parse($tokens));
-  }
-
-  #[@test]
-  public function code() {
-    var_dump($this->syntax->code());
-    echo "==============================\n";
-    $tokens= new Tokenized('[@test]');
-    $this->assertEquals(
-      ['test' => null],
-      eval($this->syntax->code())
-    );
-  }
-
-  #[@test]
-  public function code2() {
-    $code= $this->syntax->code();
-    var_dump($code);
-    echo "==============================\n";
-    $tokens= new Tokenized('[@test, @values]');
-    $this->assertEquals(
-      ['test' => null, 'values' => null],
-      eval($code)
-    );
-  }
-*/
-
-  #[@test]
-  public function code2() {
-    $code= $this->syntax->code();
-    var_dump($code);
-    echo "==============================\n";
-    $tokens= new Tokenized('[@test, @rule("admin")]');
-    $this->assertEquals(
-      ['test' => null, 'rule' => 'admin'],
-      eval($code)
-    );
   }
 }

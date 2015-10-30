@@ -44,7 +44,7 @@ class MapTest extends \unittest\TestCase {
   public function readme_example() {
     $this->assertEquals(
       ['a' => 1, 'b' => 2.0, 'c' => true, 'd' => 'D'],
-      $this->syntax->parse(new Tokenized('a: 1, b: 2.0, c: true, d: "D"'))
+      $this->syntax->evaluate(new Tokenized('a: 1, b: 2.0, c: true, d: "D"'))
     );
   }
 }
