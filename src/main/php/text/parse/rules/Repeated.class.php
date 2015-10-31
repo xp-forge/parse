@@ -11,19 +11,26 @@ use text\parse\Values;
  * @test  xp://text.parse.unittest.RepeatedMapTest
  */
 class Repeated extends Rule {
-  private $rule, $delimiter, $collection;
+  private $rule, $delimiter, $collect;
 
   /**
    * Creates a new repeated rule
    *
    * @param  text.parse.Rule $rule
    * @param  text.parse.Rule $delimiter
-   * @param  text.parse.rules.Collection $collect
+   * @param  text.parse.rules.Collection|string $collect
    */
   public function __construct(Rule $rule, Rule $delimiter= null, $collect= null) {
     $this->rule= $rule;
     $this->delimiter= $delimiter;
-    $this->collection= $collect ?: Collect::$IN_ARRAY;
+    $this->collection= $collect ?: Collect::$IN_ARRAY;  // FIXME: Remove after refactoring!
+    if (null === $collect) {
+      $this->collect= Collect::$IN_ARRAY->code();
+    } else if ($collect instanceof Collection) {
+      $this->collect= $collect->code();
+    } else {
+      $this->collect= $collect;
+    }
   }
 
   public function code() {
@@ -32,7 +39,7 @@ class Repeated extends Rule {
     $code= '$v'.$id.'= []; l'.$id.':';
     $code.= $this->rule->code();
     $code.= 'if ($errors) goto e'.$id.';';
-    $code.= strtr($this->collection, ['$values' => '$v'.$id]);
+    $code.= strtr($this->collect, ['$values' => '$v'.$id]);
 
     if ($this->delimiter) {
       $code.= $this->delimiter->code();
