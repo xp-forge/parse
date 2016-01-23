@@ -47,6 +47,6 @@ class Token extends \text\parse\Rule {
    * @return string
    */
   public function toString() {
-    return $this->getClassName().'[`'.(is_int($this->token) ? token_name($this->token) : $this->token).'`]';
+    return nameof($this).'[`'.(is_int($this->token) ? token_name($this->token) : $this->token).'`]';
   }
 }

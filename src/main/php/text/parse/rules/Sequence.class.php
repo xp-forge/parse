@@ -44,6 +44,6 @@ class Sequence extends \text\parse\Rule {
    * @return string
    */
   public function toString() {
-    return $this->getClassName().'@'.\xp::stringOf($this->rules);
+    return nameof($this).'@'.\xp::stringOf($this->rules);
   }
 }

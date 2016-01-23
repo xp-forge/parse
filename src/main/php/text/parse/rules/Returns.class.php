@@ -32,6 +32,6 @@ class Returns extends \text\parse\Rule {
   }
 
   public function toString() {
-    return $this->getClassName().'@'.\xp::stringOf($this->value);
+    return nameof($this).'@'.\xp::stringOf($this->value);
   }
 }

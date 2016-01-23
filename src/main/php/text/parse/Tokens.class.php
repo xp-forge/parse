@@ -7,7 +7,7 @@
  * @test  xp://text.parse.unittest.TokensTest
  */
 abstract class Tokens extends \lang\Object {
-  private $token= null;
+  public $token= null;
   private $tokens= [];
   private $position= 0;
 

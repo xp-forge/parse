@@ -56,6 +56,6 @@ class Repeated extends Rule {
    * @return string
    */
   public function toString() {
-    return $this->getClassName().'(->'.$this->rule->toString().')';
+    return nameof($this).'(->'.$this->rule->toString().')';
   }
 }

@@ -6,7 +6,7 @@
   "description" : "Parses code based on rules",
   "keywords": ["module", "xp"],
   "require" : {
-    "xp-framework/core": "~6.0",
+    "xp-framework/core": "^6.3",
     "php" : ">=5.4.0"
   },
   "autoload" : {

@@ -26,5 +26,5 @@ class Unmatched extends Consumed {
   public function error() { return 'Umatched rule '.$this->rule->toString()."]\n  Caused by ".$this->cause->toString(); }
 
   /** @return string */
-  public function toString() { return $this->getClassName().'@'.$this->error(); }
+  public function toString() { return nameof($this).'@'.$this->error(); }
 }

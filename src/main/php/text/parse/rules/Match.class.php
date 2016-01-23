@@ -58,6 +58,6 @@ class Match extends Rule {
    * @return string
    */
   public function toString() {
-    return $this->getClassName().'@'.\xp::stringOf($this->lookup);
+    return nameof($this).'@'.\xp::stringOf($this->lookup);
   }
 }

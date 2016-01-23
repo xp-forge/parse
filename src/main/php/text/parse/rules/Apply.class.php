@@ -32,6 +32,6 @@ class Apply extends \text\parse\Rule {
    * @return string
    */
   public function toString() {
-    return $this->getClassName().'(->'.$this->name.')';
+    return nameof($this).'(->'.$this->name.')';
   }
 }

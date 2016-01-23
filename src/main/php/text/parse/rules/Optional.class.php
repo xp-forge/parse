@@ -33,6 +33,6 @@ class Optional extends \text\parse\Rule {
    * @return string
    */
   public function toString() {
-    return $this->getClassName().'(->'.$this->rule->toString().')';
+    return nameof($this).'(->'.$this->rule->toString().')';
   }
 }

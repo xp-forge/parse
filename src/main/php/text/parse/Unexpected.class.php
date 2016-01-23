@@ -26,5 +26,5 @@ class Unexpected extends Consumed {
   public function error() { return $this->message; }
 
   /** @return string */
-  public function toString() { return $this->getClassName().'["'.$this->message.'" at line '.$this->line.']'; }
+  public function toString() { return nameof($this).'["'.$this->message.'" at line '.$this->line.']'; }
 }
