@@ -22,25 +22,29 @@ class AnnotationTest extends \unittest\TestCase {
       'rules' => function() { return new Rules([
         new Sequence(
           [new Token('['), new Apply('annotations'), new Token(']')],
-          function($values) { return $values[1]; }
+          '$result= $values[1];'
         ),
-        'annotations' => new Repeated(new Apply('annotation'), new Token(','), Collect::$AS_MAP),
-        'annotation'  => new Sequence(
-          [new Token('@'), new Token(T_STRING), new Optional(new Apply('value'))],
-          function($values) { return [$values[1] => $values[2]]; }
+        'annotations' => new Repeated(
+          new Apply('annotation'),
+          new Token(','),
+          '$values= array_merge($values, $result);'
         ),
-        'value'       => new Sequence(
+        'annotation' => new Sequence(
+          [new Token('@'), new Token(T_STRING), new Optional(new Apply('expr'))],
+          '$result= [$values[1] => $values[2]];'
+        ),
+        'expr' => new Sequence(
           [
             new Token('('),
             new Match([
-              T_CONSTANT_ENCAPSED_STRING => function($values) { return substr($values[0], 1, -1); },
-              T_STRING                   => function($values) { return constant($values[0]); },
-              T_DNUMBER                  => function($values) { return (double)$values[0]; },
-              T_LNUMBER                  => function($values) { return (int)$values[0]; }
+              T_CONSTANT_ENCAPSED_STRING => '$result= substr($values[0], 1, -1);',
+              T_STRING                   => '$result= constant($values[0]);',
+              T_LNUMBER                  => '$result= (int)$values[0];',
+              T_DNUMBER                  => '$result= (double)$values[0];',
             ]),
             new Token(')')
           ],
-          function($values) { return $values[1]; }
+          '$result= $values[1];'
         )
       ]); }
     ]);

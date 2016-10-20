@@ -10,6 +10,12 @@ class Optional extends \text\parse\Rule {
     $this->default= $default;
   }
 
+  public function code() {
+    $code= $this->rule->code();
+    $code.= 'if ($errors) { $errors= []; $result= null; }';
+    return $code;
+  }
+
   /**
    * Consume
    *

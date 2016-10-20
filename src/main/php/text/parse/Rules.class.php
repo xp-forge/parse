@@ -28,6 +28,19 @@ class Rules extends \lang\Object {
   /** @return text.parse.Rule */
   public function start() { return $this->named[0]; }
 
+  public function code() {
+    $code= '$errors= []; $rules= [0]; while (null !== ($rule= array_pop($rules))) {';
+    foreach ($this->named as $name => $rule) {
+      if (0 === $name) {
+        $code.= 'if (0 === $rule) { '.$rule->code().'}';
+      } else {
+        $code.= 'else if (\''.$name.'\' === $rule) { R'.strtr($name, '-.', '__').':'.$rule->code().'}';
+      }
+    }
+    return $code.'} return $errors ?: $result;';
+  }
+
+
   /**
    * Returns a rule by a given name
    *

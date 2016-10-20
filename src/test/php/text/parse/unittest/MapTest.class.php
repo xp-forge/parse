@@ -24,17 +24,17 @@ class MapTest extends \unittest\TestCase {
     $this->syntax= newinstance('text.parse.Syntax', [], [
       'rules' => function() { return new Rules([
         new Repeated(
-          new Sequence([new Token(T_STRING), new Token(':'), new Apply('val')], function($values) {
-            return [$values[0] => $values[2]];
-          }),
+          new Sequence([new Token(T_STRING), new Token(':'), new Apply('val')], '{
+            $result= [$values[0] => $values[2]];
+          }'),
           new Token(','),
           Collect::$AS_MAP
         ),
         'val' => new Match([
-          T_CONSTANT_ENCAPSED_STRING => function($values) { return substr($values[0], 1, -1); },
-          T_STRING                   => function($values) { return constant($values[0]); },
-          T_DNUMBER                  => function($values) { return (double)$values[0]; },
-          T_LNUMBER                  => function($values) { return (int)$values[0]; }
+          T_CONSTANT_ENCAPSED_STRING => '$result= substr($values[0], 1, -1);',
+          T_STRING                   => '$result= constant($values[0]);',
+          T_DNUMBER                  => '$result= (double)$values[0];',
+          T_LNUMBER                  => '$result= (int)$values[0];'
         ])
       ]); }
     ]);

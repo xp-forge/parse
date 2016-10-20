@@ -22,9 +22,24 @@ class Match extends Rule {
    * @param  [:var] $lookup
    */
   public function __construct($lookup) {
+    $this->lookups= $lookup;
     foreach ($lookup as $token => $handler) {
       $this->lookup[$token]= $handler instanceof Rule ? $handler : new Returns($handler);
     }
+  }
+
+  public function code() {
+    $var= $this->variable();
+
+    $code= '$token= $tokens->token();';
+    foreach ($this->lookups as $token => $handler) {
+      $code.= 'if ('.$token.' === $token[0]) {
+        $tokens->forward();
+        '.$var.'= [is_array($token) ? $token[1] : $token]; '.
+        strtr($handler, ['$values' => $var]).'
+      }';
+    }
+    return $code;
   }
 
   /**

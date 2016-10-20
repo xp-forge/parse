@@ -40,4 +40,8 @@ class Tokenized extends Tokens {
   protected function name($token) {
     return is_int($token) ? token_name($token) : '`'.$token.'`';
   }
+
+  public function toString() {
+    return nameof($this).'('.sizeof($this->input).' tokens)';
+  }
 }

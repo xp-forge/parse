@@ -42,55 +42,55 @@ class CalculatorTest extends \unittest\TestCase {
   #[@test]
   public function integer_by_itself() {
     $tokens= new Tokenized('1');
-    $this->assertEquals(1, $this->syntax->parse($tokens));
+    $this->assertEquals(1, $this->syntax->evaluate($tokens));
   }
 
   #[@test]
   public function negative_integer_by_itself() {
     $tokens= new Tokenized('-1');
-    $this->assertEquals(-1, $this->syntax->parse($tokens));
+    $this->assertEquals(-1, $this->syntax->evaluate($tokens));
   }
 
   #[@test]
   public function positive_integer_by_itself() {
     $tokens= new Tokenized('+1');
-    $this->assertEquals(1, $this->syntax->parse($tokens));
+    $this->assertEquals(1, $this->syntax->evaluate($tokens));
   }
 
   #[@test]
   public function adding_two_integers() {
     $tokens= new Tokenized('1 + 2');
-    $this->assertEquals(3, $this->syntax->parse($tokens));
+    $this->assertEquals(3, $this->syntax->evaluate($tokens));
   }
 
   #[@test]
   public function adding_three_integers() {
     $tokens= new Tokenized('1 + 2 + 3');
-    $this->assertEquals(6, $this->syntax->parse($tokens));
+    $this->assertEquals(6, $this->syntax->evaluate($tokens));
   }
 
   #[@test]
   public function decimal_by_itself() {
     $tokens= new Tokenized('1.5');
-    $this->assertEquals(1.5, $this->syntax->parse($tokens));
+    $this->assertEquals(1.5, $this->syntax->evaluate($tokens));
   }
 
   #[@test]
   public function dividing_an_integer_by_a_decimal() {
     $tokens= new Tokenized('1 / 0.5');
-    $this->assertEquals(2.0, $this->syntax->parse($tokens));
+    $this->assertEquals(2.0, $this->syntax->evaluate($tokens));
   }
 
   #[@test]
   public function precedence_of_multiplication() {
     $tokens= new Tokenized('1 + 2 * 3 - 4');
-    $this->assertEquals(3, $this->syntax->parse($tokens));
+    $this->assertEquals(3, $this->syntax->evaluate($tokens));
   }
 
   #[@test]
   public function precedence_of_division() {
     $tokens= new Tokenized('1 + 10 / 5 * 2');
-    $this->assertEquals(5, $this->syntax->parse($tokens));
+    $this->assertEquals(5, $this->syntax->evaluate($tokens));
   }
 
   #[@test, @values([
@@ -104,6 +104,6 @@ class CalculatorTest extends \unittest\TestCase {
   #])]
   public function precedence_using_braces($string) {
     $tokens= new Tokenized($string);
-    $this->assertEquals(eval('return '.$string.';'), $this->syntax->parse($tokens));
+    $this->assertEquals(eval('return '.$string.';'), $this->syntax->evaluate($tokens));
   }
 }

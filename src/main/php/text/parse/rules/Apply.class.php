@@ -14,6 +14,11 @@ class Apply extends \text\parse\Rule {
     $this->name= $name;
   }
 
+  public function code() {
+    $id= $this->id();
+    return '$rules[]= '.$id.'; goto R'.strtr($this->name, '-.', '__').'; } if ('.$id.' === $rule) {';
+  }
+
   /**
    * Consume
    *
