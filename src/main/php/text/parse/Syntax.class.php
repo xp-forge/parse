@@ -6,7 +6,7 @@
  *
  * @test  xp://text.parse.unittest.SyntaxTest
  */
-abstract class Syntax extends \lang\Object {
+abstract class Syntax {
   private $rules;
 
   /**

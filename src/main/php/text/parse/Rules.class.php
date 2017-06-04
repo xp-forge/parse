@@ -9,7 +9,7 @@ use lang\IllegalArgumentException;
  * @see   xp://text.parse.Syntax#rules
  * @test  xp://text.parse.unittest.RulesTest
  */
-class Rules extends \lang\Object {
+class Rules {
   private $named;
 
   /**

@@ -8,7 +8,7 @@
  * @see  xp://text.parse.Unmatched
  * @see  xp://text.parse.Unexpected
  */
-abstract class Consumed extends \lang\Object {
+abstract class Consumed {
 
   /**
    * Returns whether the rule matched
