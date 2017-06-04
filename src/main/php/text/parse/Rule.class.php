@@ -2,7 +2,7 @@
 
 use lang\FormatException;
 
-abstract class Rule extends \lang\Object {
+abstract class Rule {
 
   /**
    * Consume
