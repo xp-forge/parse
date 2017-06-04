@@ -16,16 +16,17 @@ Example
 The following example parses key/value pairs using the tokenizer built on top of PHP's tokenizer extension.
 
 ```php
-use text\parse\Rules;
-use text\parse\Tokenized;
-use text\parse\rules\Repeated;
-use text\parse\rules\Sequence;
-use text\parse\rules\Token;
-use text\parse\rules\Apply;
-use text\parse\rules\Match;
-use text\parse\rules\Collect;
+use text\parse\{Rules, Syntax, Tokenized};
+use text\parse\rules\{
+  Repeated,
+  Sequence,
+  Token,
+  Apply,
+  Match,
+  Collect
+};
 
-$syntax= newinstance('text.parse.Syntax', [], [
+$syntax= newinstance(Syntax::class, [], [
   'rules' => function() { return new Rules([
     new Repeated(
       new Sequence([new Token(T_STRING), new Token(':'), new Apply('val')], function($values) {
