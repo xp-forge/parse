@@ -3,6 +3,9 @@ Parse change log
 
 ## ?.?.? / ????-??-??
 
+## 2.0.1 / 2019-08-26
+
+* Added PHP 7.2, PHP 7.3 and PHP 7.4 to test matrix - @thekid
 * Removed *Trying to access array offset on value of type null* warnings
   (@thekid)
 * Changed code to use `util.Objects::stringOf()` instead of the deprecated
