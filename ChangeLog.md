@@ -3,6 +3,14 @@ Parse change log
 
 ## ?.?.? / ????-??-??
 
+* Removed *Trying to access array offset on value of type null* warnings
+  (@thekid)
+* Changed code to use `util.Objects::stringOf()` instead of the deprecated
+  `xp::stringOf()` core functionality.
+  (@thekid)
+* Changed code to use PHP 5.6 varargs instead of `func_get_args()`
+  (@thekid)
+
 ## 2.0.0 / 2017-06-04
 
 * **Heads up:** Dropped PHP 5.5 support - @thekid

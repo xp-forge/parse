@@ -1,7 +1,7 @@
 <?php namespace text\parse\rules;
 
-use text\parse\Values;
 use text\parse\Unexpected;
+use text\parse\Values;
 
 class RecursionOf extends \text\parse\Rule {
   private $tokens, $precedence, $terminal;
@@ -51,9 +51,8 @@ class RecursionOf extends \text\parse\Rule {
     do {
       $terminal= $this->terminal->consume($tokens, $stream, []);
       if ($terminal->matched()) {
-        $case= $stream->token()[0];
-        // echo ':: ', $terminal->backing(), ' ', $case, "\n";
-
+        $token= $stream->token();
+        $case= null === $token ? null : $token[0];
         if (isset($this->tokens[$case])) {
           if (-1 === $precedence) {
             $pair= ['parent' => null, 'case' => $case, 'values' => [$terminal->backing()]];

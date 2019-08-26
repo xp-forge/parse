@@ -2,6 +2,7 @@
 
 use text\parse\Rule;
 use text\parse\Unexpected;
+use util\Objects;
 
 /**
  * Matches tokens in a lookup map.
@@ -37,7 +38,7 @@ class Match extends Rule {
    */
   public function consume($rules, $tokens, $values) {
     $case= $tokens->token();
-    if (isset($this->lookup[$case[0]])) {
+    if (null !== $case && isset($this->lookup[$case[0]])) {
       $tokens->forward();
       return $this->lookup[$case[0]]->consume($rules, $tokens, [is_array($case) ? $case[1] : $case]);
     } else {
@@ -58,6 +59,6 @@ class Match extends Rule {
    * @return string
    */
   public function toString() {
-    return nameof($this).'@'.\xp::stringOf($this->lookup);
+    return nameof($this).'@'.Objects::stringOf($this->lookup);
   }
 }

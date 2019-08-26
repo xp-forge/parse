@@ -1,7 +1,7 @@
 <?php namespace text\parse\rules;
 
-use text\parse\Values;
 use text\parse\Unexpected;
+use text\parse\Values;
 
 class Token extends \text\parse\Rule {
   private $token;
@@ -26,7 +26,7 @@ class Token extends \text\parse\Rule {
   public function consume($rules, $tokens, $values) {
     $token= $tokens->token();
 
-    if ($token[0] === $this->token) {
+    if (null !== $token && $token[0] === $this->token) {
       $tokens->forward();
       return new Values(is_array($token) ? $token[1] : $token);
     } else {
