@@ -3,6 +3,10 @@ Parse change log
 
 ## ?.?.? / ????-??-??
 
+## 2.0.2 / 2020-01-07
+
+* Added compatibility with XP 10 - @thekid
+
 ## 2.0.1 / 2019-08-26
 
 * Added PHP 7.2, PHP 7.3 and PHP 7.4 to test matrix - @thekid
