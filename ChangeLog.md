@@ -3,6 +3,14 @@ Parse change log
 
 ## ?.?.? / ????-??-??
 
+## 3.0.0 / 2020-04-10
+
+* Implemented xp-framework/rfc#334: Drop PHP 5.6:
+  . **Heads up:** Minimum required PHP version now is PHP 7.0.0
+  . Rewrote code base, grouping use statements
+  . Converted `newinstance` to anonymous classes
+  (@thekid)
+
 ## 2.0.2 / 2020-01-07
 
 * Added compatibility with XP 10 - @thekid
