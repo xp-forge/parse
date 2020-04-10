@@ -1,9 +1,8 @@
 <?php namespace text\parse\unittest;
 
+use lang\{ElementNotFoundException, IllegalArgumentException};
 use text\parse\Rules;
 use text\parse\rules\Returns;
-use lang\ElementNotFoundException;
-use lang\IllegalArgumentException;
 
 class RulesTest extends \unittest\TestCase {
   private $start;

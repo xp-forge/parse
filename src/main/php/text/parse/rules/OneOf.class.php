@@ -1,8 +1,7 @@
 <?php namespace text\parse\rules;
 
-use text\parse\Rule;
-use text\parse\Unexpected;
 use lang\IllegalArgumentException;
+use text\parse\{Rule, Unexpected};
 
 /**
  * Tries to match one of the given rules. Returns the values of the first

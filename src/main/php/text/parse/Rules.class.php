@@ -1,7 +1,6 @@
 <?php namespace text\parse;
 
-use lang\ElementNotFoundException;
-use lang\IllegalArgumentException;
+use lang\{ElementNotFoundException, IllegalArgumentException};
 
 /**
  * Holds the start rule and optionally more named rules.

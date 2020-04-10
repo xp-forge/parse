@@ -1,10 +1,8 @@
 <?php namespace text\parse\unittest\rules;
 
-use text\parse\Tokenized;
-use text\parse\rules\Token;
-use text\parse\rules\OneOf;
-use text\parse\rules\Sequence;
 use lang\IllegalArgumentException;
+use text\parse\Tokenized;
+use text\parse\rules\{OneOf, Sequence, Token};
 
 class OneOfTest extends \unittest\TestCase {
 

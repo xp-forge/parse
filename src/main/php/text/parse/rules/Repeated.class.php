@@ -1,7 +1,6 @@
 <?php namespace text\parse\rules;
 
-use text\parse\Rule;
-use text\parse\Values;
+use text\parse\{Rule, Values};
 
 /**
  * Repeats a given rules 0..n times; until it no longer fully matches.

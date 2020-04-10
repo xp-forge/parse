@@ -1,11 +1,7 @@
 <?php namespace text\parse\unittest\rules;
 
 use text\parse\Tokenized;
-use text\parse\rules\Repeated;
-use text\parse\rules\Token;
-use text\parse\rules\Sequence;
-use text\parse\rules\Optional;
-use text\parse\rules\Collect;
+use text\parse\rules\{Collect, Optional, Repeated, Sequence, Token};
 
 class RepeatedMapTest extends \unittest\TestCase {
   private $fixture;

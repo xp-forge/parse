@@ -1,7 +1,6 @@
 <?php namespace text\parse\rules;
 
-use text\parse\Unexpected;
-use text\parse\Values;
+use text\parse\{Unexpected, Values};
 
 class RecursionOf extends \text\parse\Rule {
   private $tokens, $precedence, $terminal;

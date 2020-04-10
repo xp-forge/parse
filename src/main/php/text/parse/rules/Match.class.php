@@ -1,7 +1,6 @@
 <?php namespace text\parse\rules;
 
-use text\parse\Rule;
-use text\parse\Unexpected;
+use text\parse\{Rule, Unexpected};
 use util\Objects;
 
 /**

@@ -1,9 +1,7 @@
 <?php namespace text\parse\unittest\rules;
 
 use text\parse\Tokenized;
-use text\parse\rules\Optional;
-use text\parse\rules\Token;
-use text\parse\rules\Sequence;
+use text\parse\rules\{Optional, Sequence, Token};
 
 class OptionalTest extends \unittest\TestCase {
   private $fixture;

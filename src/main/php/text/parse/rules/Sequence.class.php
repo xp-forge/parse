@@ -1,7 +1,6 @@
 <?php namespace text\parse\rules;
 
-use text\parse\Values;
-use text\parse\Unmatched;
+use text\parse\{Unmatched, Values};
 
 class Sequence extends \text\parse\Rule {
   private $rules, $func;
