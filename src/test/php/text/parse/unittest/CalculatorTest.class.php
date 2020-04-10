@@ -1,17 +1,18 @@
 <?php namespace text\parse\unittest;
 
-use text\parse\{Rules, Tokenized};
 use text\parse\rules\{Apply, Match, RecursionOf, Returns, Sequence, Token};
+use text\parse\{Rules, Syntax, Tokenized};
+use unittest\TestCase;
 
-class CalculatorTest extends \unittest\TestCase {
+class CalculatorTest extends TestCase {
   private $syntax;
 
   /**
    * Declares syntax
    */
   public function setUp() {
-    $this->syntax= newinstance('text.parse.Syntax', [], [
-      'rules' => function() { return new Rules([
+    $this->syntax= new class() extends Syntax {
+      public function rules() { return new Rules([
         new Apply('expr'),
         'expr' => new RecursionOf(
           [[
@@ -30,7 +31,7 @@ class CalculatorTest extends \unittest\TestCase {
           ])
         )
       ]); }
-    ]);
+    };
   }
 
   #[@test]

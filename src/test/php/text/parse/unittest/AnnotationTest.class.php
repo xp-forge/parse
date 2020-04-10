@@ -1,17 +1,18 @@
 <?php namespace text\parse\unittest;
 
-use text\parse\{Rules, Tokenized};
 use text\parse\rules\{Apply, Collect, ListOf, Match, Optional, Repeated, Sequence, Token};
+use text\parse\{Rules, Syntax, Tokenized};
+use unittest\TestCase;
 
-class AnnotationTest extends \unittest\TestCase {
+class AnnotationTest extends TestCase {
   private $syntax;
 
   /**
    * Declares syntax
    */
   public function setUp() {
-    $this->syntax= newinstance('text.parse.Syntax', [], [
-      'rules' => function() { return new Rules([
+    $this->syntax= new class() extends Syntax {
+      public function rules() { return new Rules([
         new Sequence(
           [new Token('['), new Apply('annotations'), new Token(']')],
           function($values) { return $values[1]; }
@@ -35,7 +36,7 @@ class AnnotationTest extends \unittest\TestCase {
           function($values) { return $values[1]; }
         )
       ]); }
-    ]);
+    };
   }
 
   #[@test]

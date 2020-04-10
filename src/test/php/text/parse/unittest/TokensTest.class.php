@@ -1,8 +1,9 @@
 <?php namespace text\parse\unittest;
 
 use text\parse\Tokens;
+use unittest\TestCase;
 
-class TokensTest extends \unittest\TestCase {
+class TokensTest extends TestCase {
 
   /**
    * Returns new tokens
@@ -11,12 +12,12 @@ class TokensTest extends \unittest\TestCase {
    * @return text.parse.Tokens
    */
   private function newFixture($input) {
-    return newinstance('text.parse.Tokens', [$input], [
-      'input'       => [],
-      '__construct' => function($input) { $this->input= $input; },
-      'next'        => function() { return array_shift($this->input); },
-      'name'        => function($token) { return '#'.$token; }
-    ]);
+    return new class($input) extends Tokens {
+      public $input= [];
+      public function __construct($input) { $this->input= $input; }
+      public function next() { return array_shift($this->input); }
+      public function name($token) { return '#'.$token; }
+    };
   }
 
   #[@test]

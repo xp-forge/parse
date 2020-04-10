@@ -1,22 +1,23 @@
 <?php namespace text\parse\unittest;
 
-use text\parse\{Rules, Tokenized};
 use text\parse\rules\{Apply, Collect, Match, Repeated, Sequence, Token};
+use text\parse\{Rules, Syntax, Tokenized};
+use unittest\TestCase;
 
 /**
  * Verifies example on front page works
  *
  * @see   https://github.com/xp-forge/parse/blob/master/README.md
  */
-class MapTest extends \unittest\TestCase {
+class MapTest extends TestCase {
   private $syntax;
 
   /**
    * Declares syntax
    */
   public function setUp() {
-    $this->syntax= newinstance('text.parse.Syntax', [], [
-      'rules' => function() { return new Rules([
+    $this->syntax= new class extends Syntax {
+      public function rules() { return new Rules([
         new Repeated(
           new Sequence([new Token(T_STRING), new Token(':'), new Apply('val')], function($values) {
             return [$values[0] => $values[2]];
@@ -31,7 +32,7 @@ class MapTest extends \unittest\TestCase {
           T_LNUMBER                  => function($values) { return (int)$values[0]; }
         ])
       ]); }
-    ]);
+    };
   }
 
   #[@test]

@@ -1,17 +1,18 @@
 <?php namespace text\parse\unittest;
 
-use text\parse\{Rules, Tokenized};
 use text\parse\rules\{Apply, Match, OneOf, Repeated, Sequence, Token};
+use text\parse\{Rules, Syntax, Tokenized};
+use unittest\TestCase;
 
-class ArrayTest extends \unittest\TestCase {
+class ArrayTest extends TestCase {
   private $syntax;
 
   /**
    * Declares syntax
    */
   public function setUp() {
-    $this->syntax= newinstance('text.parse.Syntax', [], [
-      'rules' => function() { return new Rules([
+    $this->syntax= new class() extends Syntax {
+      public function rules() { return new Rules([
         new Sequence([new Apply('expr')], function($values) { return $values[0]; }),
         'expr' => new OneOf([
           new Match([
@@ -31,7 +32,7 @@ class ArrayTest extends \unittest\TestCase {
           )
         ])
       ]); }
-    ]);
+    };
   }
 
   #[@test]
