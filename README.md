@@ -4,8 +4,7 @@ Parse
 [![Build Status on TravisCI](https://secure.travis-ci.org/xp-forge/parse.svg)](http://travis-ci.org/xp-forge/parse)
 [![XP Framework Mdodule](https://raw.githubusercontent.com/xp-framework/web/master/static/xp-framework-badge.png)](https://github.com/xp-framework/core)
 [![BSD Licence](https://raw.githubusercontent.com/xp-framework/web/master/static/licence-bsd.png)](https://github.com/xp-framework/core/blob/master/LICENCE.md)
-[![Required PHP 5.6+](https://raw.githubusercontent.com/xp-framework/web/master/static/php-5_6plus.png)](http://php.net/)
-[![Required PHP 7.0+](https://raw.githubusercontent.com/xp-framework/web/master/static/php-7_0plus.png)](http://php.net/)
+[![Requires PHP 7.0+](https://raw.githubusercontent.com/xp-framework/web/master/static/php-7_0plus.png)](http://php.net/)
 [![Latest Stable Version](https://poser.pugx.org/xp-forge/parse/version.png)](https://packagist.org/packages/xp-forge/parse)
 
 Parses code based on rules.
@@ -25,8 +24,8 @@ use text\parse\rules\{
   Collect
 };
 
-$syntax= newinstance(Syntax::class, [], [
-  'rules' => function() { return new Rules([
+$syntax= new class() extends Syntax {
+  public function rules() { return new Rules([
     new Repeated(
       new Sequence([new Token(T_STRING), new Token(':'), new Apply('val')], function($values) {
         return [$values[0] => $values[2]];
@@ -41,7 +40,7 @@ $syntax= newinstance(Syntax::class, [], [
       T_LNUMBER                  => function($values) { return (int)$values[0]; }
     ])
   ]); }
-]);
+};
 
 $tokens= new Tokenized('a: 1, b: 2.0, c: true, d: "D"');
 $pairs= $syntax->parse($tokens);  // ["a" => 1, "b" => 2.0, "c" => true, "d" => "D"]
