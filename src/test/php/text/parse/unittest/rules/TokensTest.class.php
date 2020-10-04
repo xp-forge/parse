@@ -16,17 +16,19 @@ class TokensTest extends \unittest\TestCase {
 
   #[Test]
   public function php_absolute_typename() {
+    $tokens= new Tokens(T_STRING, T_NS_SEPARATOR, T_NAME_FULLY_QUALIFIED, T_NAME_QUALIFIED);
     $this->assertEquals(
-      ['\\', 'unittest', '\\', 'TestCase'],
-      (new Tokens(T_STRING, T_NS_SEPARATOR))->consume([], new Tokenized('\unittest\TestCase'), [])->backing()
+      '\\unittest\\TestCase',
+      implode('', $tokens->consume([], new Tokenized('\unittest\TestCase'), [])->backing())
     );
   }
 
   #[Test]
   public function php_relative_typename() {
+    $tokens= new Tokens(T_STRING, T_NS_SEPARATOR, T_NAME_FULLY_QUALIFIED, T_NAME_QUALIFIED);
     $this->assertEquals(
-      ['unittest', '\\', 'TestCase'],
-      (new Tokens(T_STRING, T_NS_SEPARATOR))->consume([], new Tokenized('unittest\TestCase'), [])->backing()
+      'unittest\\TestCase',
+      implode('', $tokens->consume([], new Tokenized('unittest\TestCase'), [])->backing())
     );
   }
 }
