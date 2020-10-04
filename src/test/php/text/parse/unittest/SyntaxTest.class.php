@@ -2,18 +2,18 @@
 
 use text\parse\rules\Returns;
 use text\parse\{Rules, Syntax, Tokens};
-use unittest\TestCase;
+use unittest\{Test, TestCase};
 
 class SyntaxTest extends TestCase {
 
-  #[@test]
+  #[Test]
   public function can_create() {
     new class() extends Syntax {
       public function rules() { return new Rules([new Returns(null)]); }
     };
   }
 
-  #[@test]
+  #[Test]
   public function parse() {
     $syntax= new class() extends Syntax {
       public function rules() { return new Rules([new Returns('Test')]); }

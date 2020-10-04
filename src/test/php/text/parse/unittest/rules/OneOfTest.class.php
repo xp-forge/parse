@@ -3,6 +3,7 @@
 use lang\IllegalArgumentException;
 use text\parse\Tokenized;
 use text\parse\rules\{OneOf, Sequence, Token};
+use unittest\{Expect, Test};
 
 class OneOfTest extends \unittest\TestCase {
 
@@ -18,22 +19,22 @@ class OneOfTest extends \unittest\TestCase {
     ]);
   }
 
-  #[@test, @expect(IllegalArgumentException::class)]
+  #[Test, Expect(IllegalArgumentException::class)]
   public function cannot_create_with_empty_rules() {
     new OneOf([]);
   }
 
-  #[@test]
+  #[Test]
   public function first_rule_matches() {
     $this->assertEquals(['first' => ['a', 'b']], $this->fixture()->consume([], new Tokenized('a b'), [])->backing());
   }
 
-  #[@test]
+  #[Test]
   public function second_rule_matches() {
     $this->assertEquals(['second' => ['a']], $this->fixture()->consume([], new Tokenized('a'), [])->backing());
   }
 
-  #[@test]
+  #[Test]
   public function no_rules_matches() {
     $message= 'Unexpected T_LNUMBER<1>';
     $this->assertEquals($message, $this->fixture()->consume([], new Tokenized('1'), [])->error());

@@ -2,6 +2,7 @@
 
 use text\parse\Tokenized;
 use text\parse\rules\{Collect, Optional, Repeated, Sequence, Token};
+use unittest\Test;
 
 class RepeatedMapTest extends \unittest\TestCase {
   private $fixture;
@@ -22,25 +23,25 @@ class RepeatedMapTest extends \unittest\TestCase {
     );
   }
 
-  #[@test]
+  #[Test]
   public function pair_by_itself() {
     $tokens= new Tokenized('a : b');
     $this->assertEquals(['a' => 'b'], $this->fixture->consume([], $tokens, [])->backing());
   }
 
-  #[@test]
+  #[Test]
   public function two_pairs() {
     $tokens= new Tokenized('a : b, c: d');
     $this->assertEquals(['a' => 'b', 'c' => 'd'], $this->fixture->consume([], $tokens, [])->backing());
   }
 
-  #[@test]
+  #[Test]
   public function two_pairs_and_dangling_comma_at_end() {
     $tokens= new Tokenized('a : b, c: d, ');
     $this->assertEquals(['a' => 'b', 'c' => 'd'], $this->fixture->consume([], $tokens, [])->backing());
   }
 
-  #[@test]
+  #[Test]
   public function inside_another_rule() {
     $tokens= new Tokenized('set{a : b};');
     $rule= new Sequence(

@@ -2,6 +2,7 @@
 
 use text\parse\Tokenized;
 use text\parse\rules\{Collect, Optional, Repeated, Sequence, Token};
+use unittest\Test;
 
 class RepeatedAddTest extends \unittest\TestCase {
   private $fixture;
@@ -19,25 +20,25 @@ class RepeatedAddTest extends \unittest\TestCase {
     );
   }
 
-  #[@test]
+  #[Test]
   public function number_by_itself() {
     $tokens= new Tokenized('1');
     $this->assertEquals(['1'], $this->fixture->consume([], $tokens, [])->backing());
   }
 
-  #[@test]
+  #[Test]
   public function two_numbers() {
     $tokens= new Tokenized('1, 2');
     $this->assertEquals(['1', '2'], $this->fixture->consume([], $tokens, [])->backing());
   }
 
-  #[@test]
+  #[Test]
   public function two_numbers_and_dangling_comma_at_end() {
     $tokens= new Tokenized('1, 2, ');
     $this->assertEquals(['1', '2'], $this->fixture->consume([], $tokens, [])->backing());
   }
 
-  #[@test]
+  #[Test]
   public function inside_another_rule() {
     $tokens= new Tokenized('f(1, 2);');
     $rule= new Sequence(

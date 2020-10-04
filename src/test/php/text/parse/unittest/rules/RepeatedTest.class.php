@@ -2,6 +2,7 @@
 
 use text\parse\Tokenized;
 use text\parse\rules\{Repeated, Sequence, Token};
+use unittest\Test;
 
 class RepeatedTest extends \unittest\TestCase {
   private $fixture;
@@ -18,19 +19,19 @@ class RepeatedTest extends \unittest\TestCase {
     ));
   }
 
-  #[@test]
+  #[Test]
   public function one_use_statement() {
     $tokens= new Tokenized('use a;');
     $this->assertEquals(['a'], $this->fixture->consume([], $tokens, [])->backing());
   }
 
-  #[@test]
+  #[Test]
   public function two_use_statements() {
     $tokens= new Tokenized('use a; use b;');
     $this->assertEquals(['a', 'b'], $this->fixture->consume([], $tokens, [])->backing());
   }
 
-  #[@test]
+  #[Test]
   public function empty_return() {
     $tokens= new Tokenized('');
     $this->assertEquals([], $this->fixture->consume([], $tokens, [])->backing());

@@ -2,6 +2,7 @@
 
 use text\parse\Tokenized;
 use text\parse\rules\{Optional, Sequence, Token};
+use unittest\Test;
 
 class OptionalTest extends \unittest\TestCase {
   private $fixture;
@@ -18,13 +19,13 @@ class OptionalTest extends \unittest\TestCase {
     );
   }
 
-  #[@test]
+  #[Test]
   public function statement() {
     $tokens= new Tokenized('a');
     $this->assertEquals(['a' => null], $this->fixture->consume([], $tokens, [])->backing());
   }
 
-  #[@test]
+  #[Test]
   public function statement_with_optional_semicolon() {
     $tokens= new Tokenized('a;');
     $this->assertEquals(['a' => ';'], $this->fixture->consume([], $tokens, [])->backing());

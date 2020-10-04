@@ -2,10 +2,11 @@
 
 use text\parse\Tokenized;
 use text\parse\rules\Tokens;
+use unittest\Test;
 
 class TokensTest extends \unittest\TestCase {
 
-  #[@test]
+  #[Test]
   public function dotted_package_name() {
     $this->assertEquals(
       ['text', '.', 'parse', '.', 'v2'],
@@ -13,7 +14,7 @@ class TokensTest extends \unittest\TestCase {
     );
   }
 
-  #[@test]
+  #[Test]
   public function php_absolute_typename() {
     $this->assertEquals(
       ['\\', 'unittest', '\\', 'TestCase'],
@@ -21,7 +22,7 @@ class TokensTest extends \unittest\TestCase {
     );
   }
 
-  #[@test]
+  #[Test]
   public function php_relative_typename() {
     $this->assertEquals(
       ['unittest', '\\', 'TestCase'],

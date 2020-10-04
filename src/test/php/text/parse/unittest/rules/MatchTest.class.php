@@ -2,14 +2,11 @@
 
 use text\parse\Tokenized;
 use text\parse\rules\Match;
+use unittest\{Test, Values};
 
 class MatchTest extends \unittest\TestCase {
 
-  #[@test, @values([
-  #  ['1', 1], ['-1', -1],
-  #  ['1.5', 1.5], ['-1.5', -1.5],
-  #  ['true', true]
-  #])]
+  #[Test, Values([['1', 1], ['-1', -1], ['1.5', 1.5], ['-1.5', -1.5], ['true', true]])]
   public function constants_and_numbers($input, $outcome) {
     $rule= new Match([
       T_STRING  => function($values) { return constant($values[0]); },
@@ -23,7 +20,7 @@ class MatchTest extends \unittest\TestCase {
     $this->assertEquals($outcome, $rule->consume([], new Tokenized($input), [])->backing());
   }
 
-  #[@test]
+  #[Test]
   public function mismatched_numbers() {
     $rule= new Match([
       T_DNUMBER => function($values) { /* Intentionally empty */ },

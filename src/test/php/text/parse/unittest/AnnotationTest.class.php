@@ -2,7 +2,7 @@
 
 use text\parse\rules\{Apply, Collect, ListOf, Match, Optional, Repeated, Sequence, Token};
 use text\parse\{Rules, Syntax, Tokenized};
-use unittest\TestCase;
+use unittest\{Test, TestCase};
 
 class AnnotationTest extends TestCase {
   private $syntax;
@@ -39,31 +39,31 @@ class AnnotationTest extends TestCase {
     };
   }
 
-  #[@test]
+  #[Test]
   public function test_annotation() {
     $tokens= new Tokenized('[@test]');
     $this->assertEquals(['test' => null], $this->syntax->parse($tokens));
   }
 
-  #[@test]
+  #[Test]
   public function test_and_slow_annotations() {
     $tokens= new Tokenized('[@test, @slow]');
     $this->assertEquals(['test' => null, 'slow' => null], $this->syntax->parse($tokens));
   }
 
-  #[@test]
+  #[Test]
   public function rule_annotation_with_string_value() {
     $tokens= new Tokenized('[@rule("admin")]');
     $this->assertEquals(['rule' => 'admin'], $this->syntax->parse($tokens));
   }
 
-  #[@test]
+  #[Test]
   public function access_annotation_with_constant_value() {
     $tokens= new Tokenized('[@access(MODIFIER_PUBLIC)]');
     $this->assertEquals(['access' => MODIFIER_PUBLIC], $this->syntax->parse($tokens));
   }
 
-  #[@test]
+  #[Test]
   public function limit_annotation_with_constant_value() {
     $tokens= new Tokenized('[@limit(1.4)]');
     $this->assertEquals(['limit' => 1.4], $this->syntax->parse($tokens));

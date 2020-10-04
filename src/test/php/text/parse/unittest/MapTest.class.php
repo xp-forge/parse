@@ -2,7 +2,7 @@
 
 use text\parse\rules\{Apply, Collect, Match, Repeated, Sequence, Token};
 use text\parse\{Rules, Syntax, Tokenized};
-use unittest\TestCase;
+use unittest\{Test, TestCase};
 
 /**
  * Verifies example on front page works
@@ -35,7 +35,7 @@ class MapTest extends TestCase {
     };
   }
 
-  #[@test]
+  #[Test]
   public function readme_example() {
     $this->assertEquals(
       ['a' => 1, 'b' => 2.0, 'c' => true, 'd' => 'D'],

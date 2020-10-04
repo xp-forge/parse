@@ -1,7 +1,7 @@
 <?php namespace text\parse\unittest;
 
 use text\parse\Tokens;
-use unittest\TestCase;
+use unittest\{Test, TestCase};
 
 class TokensTest extends TestCase {
 
@@ -20,28 +20,28 @@ class TokensTest extends TestCase {
     };
   }
 
-  #[@test]
+  #[Test]
   public function empty_token_list() {
     $this->assertNull($this->newFixture([])->token());
   }
 
-  #[@test]
+  #[Test]
   public function first_token() {
     $this->assertEquals('a', $this->newFixture(['a', 'b', 'c'])->token());
   }
 
-  #[@test]
+  #[Test]
   public function position_initially_zero() {
     $this->assertEquals(0, $this->newFixture(['a', 'b', 'c'])->position());
   }
 
-  #[@test]
+  #[Test]
   public function calling_token_method_does_not_forward() {
     $fixture= $this->newFixture(['a', 'b', 'c']);
     $this->assertEquals(['a', 'a', 'a'], [$fixture->token(), $fixture->token(), $fixture->token()]);
   }
 
-  #[@test]
+  #[Test]
   public function second_token_returned_after_forward() {
     $fixture= $this->newFixture(['a', 'b', 'c']);
     $fixture->token();
@@ -50,7 +50,7 @@ class TokensTest extends TestCase {
     $this->assertEquals('b', $fixture->token());
   }
 
-  #[@test]
+  #[Test]
   public function position_after_forward() {
     $fixture= $this->newFixture(['a', 'b', 'c']);
     $fixture->token();
@@ -59,7 +59,7 @@ class TokensTest extends TestCase {
     $this->assertEquals(1, $fixture->position());
   }
 
-  #[@test]
+  #[Test]
   public function first_token_returned_after_backing_up() {
     $fixture= $this->newFixture(['a', 'b', 'c']);
     with ($position= $fixture->position()); {
