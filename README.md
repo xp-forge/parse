@@ -20,7 +20,7 @@ use text\parse\rules\{
   Sequence,
   Token,
   Apply,
-  Match,
+  Matches,
   Collect
 };
 
@@ -33,7 +33,7 @@ $syntax= new class() extends Syntax {
       new Token(','),
       Collect::$AS_MAP
     ),
-    'val' => new Match([
+    'val' => new Matches([
       T_CONSTANT_ENCAPSED_STRING => function($values) { return substr($values[0], 1, -1); },
       T_STRING                   => function($values) { return constant($values[0]); },
       T_DNUMBER                  => function($values) { return (double)$values[0]; },
@@ -61,8 +61,8 @@ Be aware of the fact that this will match three dots, or three strings, or a str
 ### Apply
 The rule *Apply(RuleName)* will defer handling to a given named rule passed to the `Rules` constructor.
 
-### Match
-The rule *Match([T1 => Rule1[, T2 => Rule2[, ...]]])* matches rules based on the initial tokens used in the lookup map. High-performance due to `isset()`-based lookups, though less flexible as `OneOf`.
+### Matches
+The rule *Matches([T1 => Rule1[, T2 => Rule2[, ...]]])* matches rules based on the initial tokens used in the lookup map. High-performance due to `isset()`-based lookups, though less flexible as `OneOf`.
 
 ### OneOf
 The rule *OneOf([Rule1[, Rule2[, ...]]])* matches rules in the order specified and returns the values of the first rule
