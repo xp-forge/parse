@@ -3,6 +3,12 @@ Parse change log
 
 ## ?.?.? / ????-??-??
 
+## 4.0.0 / 2020-10-04
+
+* **Heads up:** Renamed `text.parse.rules.Match` class to *Matches* as
+  match is a keyword in PHP 8: https://wiki.php.net/rfc/match_expression_v2
+  (@thekid)
+
 ## 3.0.0 / 2020-04-10
 
 * Implemented xp-framework/rfc#334: Drop PHP 5.6:

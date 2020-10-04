@@ -8,7 +8,7 @@ use util\Objects;
  *
  * @test  xp://text.parse.unittest.rules.MatchTest
  */
-class Match extends Rule {
+class Matches extends Rule {
   private $lookup;
 
   /**

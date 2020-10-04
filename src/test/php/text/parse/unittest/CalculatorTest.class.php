@@ -1,6 +1,6 @@
 <?php namespace text\parse\unittest;
 
-use text\parse\rules\{Apply, Match, RecursionOf, Returns, Sequence, Token};
+use text\parse\rules\{Apply, Matches, RecursionOf, Returns, Sequence, Token};
 use text\parse\{Rules, Syntax, Tokenized};
 use unittest\{Test, TestCase, Values};
 
@@ -22,7 +22,7 @@ class CalculatorTest extends TestCase {
             '+'       => function($values) { return $values[0] + $values[2]; },
             '-'       => function($values) { return $values[0] - $values[2]; },
           ]],
-          new Match([
+          new Matches([
             T_LNUMBER => function($values) { return (int)$values[0]; },
             T_DNUMBER => function($values) { return (double)$values[0]; },
             '-'       => new Sequence([new Apply('expr')], function($values) { return -1 * $values[1]; }),

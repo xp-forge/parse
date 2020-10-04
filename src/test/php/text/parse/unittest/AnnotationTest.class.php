@@ -1,6 +1,6 @@
 <?php namespace text\parse\unittest;
 
-use text\parse\rules\{Apply, Collect, ListOf, Match, Optional, Repeated, Sequence, Token};
+use text\parse\rules\{Apply, Collect, ListOf, Matches, Optional, Repeated, Sequence, Token};
 use text\parse\{Rules, Syntax, Tokenized};
 use unittest\{Test, TestCase};
 
@@ -25,7 +25,7 @@ class AnnotationTest extends TestCase {
         'value'       => new Sequence(
           [
             new Token('('),
-            new Match([
+            new Matches([
               T_CONSTANT_ENCAPSED_STRING => function($values) { return substr($values[0], 1, -1); },
               T_STRING                   => function($values) { return constant($values[0]); },
               T_DNUMBER                  => function($values) { return (double)$values[0]; },

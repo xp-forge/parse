@@ -1,6 +1,6 @@
 <?php namespace text\parse\unittest;
 
-use text\parse\rules\{Apply, Collect, Match, Repeated, Sequence, Token};
+use text\parse\rules\{Apply, Collect, Matches, Repeated, Sequence, Token};
 use text\parse\{Rules, Syntax, Tokenized};
 use unittest\{Test, TestCase};
 
@@ -25,7 +25,7 @@ class MapTest extends TestCase {
           new Token(','),
           Collect::$AS_MAP
         ),
-        'val' => new Match([
+        'val' => new Matches([
           T_CONSTANT_ENCAPSED_STRING => function($values) { return substr($values[0], 1, -1); },
           T_STRING                   => function($values) { return constant($values[0]); },
           T_DNUMBER                  => function($values) { return (double)$values[0]; },

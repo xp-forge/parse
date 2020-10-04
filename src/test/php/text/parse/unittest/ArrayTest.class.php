@@ -1,6 +1,6 @@
 <?php namespace text\parse\unittest;
 
-use text\parse\rules\{Apply, Match, OneOf, Repeated, Sequence, Token};
+use text\parse\rules\{Apply, Matches, OneOf, Repeated, Sequence, Token};
 use text\parse\{Rules, Syntax, Tokenized};
 use unittest\{Test, TestCase};
 
@@ -15,7 +15,7 @@ class ArrayTest extends TestCase {
       public function rules() { return new Rules([
         new Sequence([new Apply('expr')], function($values) { return $values[0]; }),
         'expr' => new OneOf([
-          new Match([
+          new Matches([
             T_LNUMBER => function($values) { return (int)$values[0]; },
             '[' => new Sequence(
               [new Repeated(new Apply('expr'), new Token(',')), new Token(']')],
